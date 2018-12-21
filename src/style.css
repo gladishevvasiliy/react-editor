@@ -1,0 +1,9 @@
+.mainContainer {
+  padding-top: 30px;
+}
+
+.sideNav {
+  padding-top: 10px;
+  background-color: #f7f7f7;
+  border-right: 1px solid #ececec;
+}

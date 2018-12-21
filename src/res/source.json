@@ -1,0 +1,46 @@
+{
+  "symbols": [
+    {
+      "name": "Параклит",
+      "list": [
+        {
+          "id": 1,
+          "value": "<span class='red'>í</span>o",
+          "pitch": "Ре",
+          "name": "Параклит Ре",
+          "sounds": 1,
+          "opts": []
+        },
+        {
+          "id": 2,
+          "value": "<span class='red'>ö</span>[",
+          "pitch": "Ми",
+          "name": "Параклит Ми",
+          "sounds": 1,
+          "opts": []
+        }
+      ]
+    },
+    {
+      "name": "Крюк",
+      "list": [
+        {
+          "id": 3,
+          "value": "<span class='red'>Ã</span>k",
+          "pitch": "Ут низкое",
+          "name": "Крюк Ут низкое",
+          "sounds": 1,
+          "opts": []
+        },
+        {
+          "id": 3,
+          "value": "<span class='red'>ð</span>k",
+          "pitch": "Ут низкое",
+          "name": "Крюк Ут низкое (равенство)",
+          "sounds": 1,
+          "opts": ["Равенство"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["react"],
+
+  "extends": ["airbnb"],
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "max-len": [1, 120, 2, { "ignoreComments": true }],
+    "linebreak-style": 0
+  }
+}

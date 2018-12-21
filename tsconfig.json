@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "outDir": "./public/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "esnext",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "typings/*"]
+    }
+  },
+  "include": ["src"]
+}
