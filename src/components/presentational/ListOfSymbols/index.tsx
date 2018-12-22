@@ -10,7 +10,7 @@ interface Props {
 
 const ListOfSymbols = (props: Props) => {
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover className="categoryTable">
       <thead>
         <tr>
           <th>#</th>

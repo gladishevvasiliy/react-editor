@@ -7,11 +7,10 @@ interface Props {
 }
 
 const SymbolRow = ({ symbol }: Props) => {
-  console.log(symbol);
   return (
     <tr>
       <th>{symbol.id}</th>
-      <th dangerouslySetInnerHTML={{ __html: symbol.value }} />
+      <th><div dangerouslySetInnerHTML={{ __html: symbol.value }} className="symbol-view" /></th>
       <th>{symbol.name}</th>
       <th>{symbol.pitch}</th>
       <th>{symbol.sounds}</th>

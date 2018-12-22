@@ -1,10 +1,10 @@
 export type Category = {
   name: string;
-  list: Array<Symbol>;
+  symbols: Array<Symbol>;
 };
 
 export type Symbol = {
-  id: number;
+  id?: number;
   value: string;
   pitch: string;
   name: string;

@@ -7,7 +7,18 @@ module.exports = {
   module: {
     rules: [
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
-      { test: /\.(woff | woff2 | eot | ttf | otf)$/, use: ['file-loader'] },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        ],
+      },
       {
         test: /\.(ts|js)x?$/,
         exclude: /(node_modules|bower_components)/,

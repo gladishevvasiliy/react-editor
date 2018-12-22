@@ -9,7 +9,25 @@ import './style.css';
 // @ts-ignore
 import { Container, Col, Row } from 'react-bootstrap';
 
+const url='http://localhost:1235/kruki/all'
+
+const fetchData = url => fetch(url).then((resp) => {
+  const data = resp.json()
+    return data
+})
+
+const dataFromAPI = []
+
+const resp = fetchData(url).then((data) => {
+  data.map(item=>dataFromAPI.push({id: item._id, name: item.name, list: item.symbols}))
+})
+
+setTimeout(() => {
+  console.log(dataFromAPI)
+}, 1000);
+
 const data = [...responce.symbols];
+console.log(data)
 interface IData {
   data: Array<Category>;
 }
