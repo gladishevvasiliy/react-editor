@@ -14,18 +14,24 @@ export default class ShowSymbolsContainer extends React.Component<
     super(props);
   }
 
+  onClickRow = ({ target }) => {
+    console.log("Open modal edit kruk by id " + target.parentElement.id)
+  }
+
   render() {
     const { symbolList } = this.props;
-
     return (
       <React.Fragment>
-        {symbolList.map(category => (
+        {symbolList.map(category => {
+          return(
           <CategoryOfSymbols
-            key={category.name}
+            key={category._id}
             name={category.name}
-            list={category.list}
+            symbols={category.symbols}
+            handleClick={this.onClickRow}
           />
-        ))}
+        )
+        })}
       </React.Fragment>
     );
   }

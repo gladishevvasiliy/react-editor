@@ -5,7 +5,8 @@ import SymbolRow from '../SymbolRow';
 import './style.css';
 
 interface Props {
-  list: Array<Symbol>;
+  symbols: Array<Symbol>;
+  handleClick: Function;
 }
 
 const ListOfSymbols = (props: Props) => {
@@ -22,8 +23,8 @@ const ListOfSymbols = (props: Props) => {
         </tr>
       </thead>
       <tbody>
-        {props.list.map(symbol => (
-          <SymbolRow symbol={symbol} />
+        {props.symbols.map(symbol => (
+          <SymbolRow key={symbol._id} symbol={symbol} handleClick={props.handleClick}/>
         ))}
       </tbody>
     </Table>

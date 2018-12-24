@@ -5,11 +5,16 @@ import { Card } from 'react-bootstrap';
 import ListOfSymbols from '../ListOfSymbols';
 import './style.css';
 
-const CategoryOfSymbols = (props: Category) => {
+interface Props {
+  handleClick: Function
+}
+
+const CategoryOfSymbols = (props: Category & Props) => {
+
   return (
     <Card className="categoryOfSymbols">
       <Card.Header id={props.name}>{props.name}</Card.Header>
-      <ListOfSymbols list={props.list} />
+      <ListOfSymbols symbols={props.symbols} handleClick={props.handleClick}/>
       <Card.Body />
     </Card>
   );

@@ -4,7 +4,7 @@ export type Category = {
 };
 
 export type Symbol = {
-  id?: number;
+  _id: number;
   value: string;
   pitch: string;
   name: string;
