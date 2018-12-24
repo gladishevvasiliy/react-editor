@@ -6,15 +6,14 @@ import ListOfSymbols from '../ListOfSymbols';
 import './style.css';
 
 interface Props {
-  handleClick: Function
+  handleClick: Function;
 }
 
 const CategoryOfSymbols = (props: Category & Props) => {
-
   return (
     <Card className="categoryOfSymbols">
       <Card.Header id={props.name}>{props.name}</Card.Header>
-      <ListOfSymbols symbols={props.symbols} handleClick={props.handleClick}/>
+      <ListOfSymbols symbols={props.symbols} handleClick={props.handleClick} />
       <Card.Body />
     </Card>
   );

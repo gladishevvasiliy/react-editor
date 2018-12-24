@@ -1,64 +1,64 @@
-import React, { Component } from 'react'
-import { Form, InputGroup, Col, Button } from 'react-bootstrap'
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import AddSymbolForm from '../../presentational/AddSymbolForm';
+import { addSymbol } from '../../../actions';
 
-export default class AddSymbolContainer extends React.Component {
+class AddSymbolContainer extends React.Component {
+  onSendForm = event => {
+    event.preventDefault();
+    const {
+      name,
+      pitch,
+      sounds,
+      opts,
+      value,
+      idOfCategory,
+    } = event.target.elements;
+
+    const newSymbol = {
+      name: name.value,
+      pitch: pitch.value,
+      sounds: sounds.value,
+      opts: opts.value,
+      value: value.value,
+      categoryId: idOfCategory.value,
+    };
+
+    fetch('http://localhost:1235/kruki/create/symbol', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+
+      //make sure to serialize your JSON body
+      body: JSON.stringify(newSymbol),
+    }).then(response => {});
+  };
+
   render() {
+    const { list } = this.props;
     return (
-      <div className="addSymbolForm">
-        <Form
-        onSubmit={e => console.log(e)}
-      >
-        <Form.Row>
-          <Form.Group as={Col} md="3">
-            <Form.Label>Название символа</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Название символа"
-            />
-          </Form.Group>
-          <Form.Group as={Col} md="3">
-            <Form.Label>Высота</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Фа"
-                required
-              />
-          </Form.Group>
-          <Form.Group as={Col} md="3">
-            <Form.Label>Кол-во звуков</Form.Label>
-            <Form.Control
-              required
-              type="number"
-              placeholder="1"
-              
-            />
-          </Form.Group>
-          <Form.Group as={Col} md="3">
-            <Form.Label>Опции</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Равенство,Отсечка"
-            />
-            <Form.Text className="text-muted">
-            Введите список опций через запятую (без пробелов) с заглавной буквы.
-            </Form.Text>
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-        <Form.Group as={Col} md="12">
-            <Form.Label>Вид (html)</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="<span>...</span>"
-            />
-          </Form.Group>
-        </Form.Row>
-        <Button type="submit">Добавить символ</Button>
-      </Form>
-      </div>
-    )
+      <AddSymbolForm
+        onSendForm={this.onSendForm}
+        nameAndIdOfCategories={list.map(item => {
+          return { nameOfCategory: item.name, idOfCategory: item._id };
+        })}
+      />
+    );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ addSymbol }, dispatch),
+});
+
+const mapStateToProps = state => ({
+  list: state.list,
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddSymbolContainer);
