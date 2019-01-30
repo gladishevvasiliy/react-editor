@@ -3,9 +3,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AddSymbolForm from '../../presentational/AddSymbolForm';
 import { addSymbol } from '../../../actions';
+import { sendNewSymbolToServer } from '../../../res/utils';
+import { API, API_SEND_NEW_SYMBOL } from '../../../res/constants';
 
 class AddSymbolContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      symbolToStore: {},
+    };
+  }
+
   onSendForm = event => {
+    const { actions } = this.props;
+    //{"name":"sd","pitch":"sd","sounds":"1","opts":["sd"],"value":"sd","categoryId":"5c1d696fd1e96b1c61a3d57d"}
     event.preventDefault();
     const {
       name,
@@ -15,26 +26,22 @@ class AddSymbolContainer extends React.Component {
       value,
       idOfCategory,
     } = event.target.elements;
-
+    console.log(typeof opts.value);
     const newSymbol = {
       name: name.value,
       pitch: pitch.value,
       sounds: sounds.value,
-      opts: opts.value,
+      opts: opts.value.split(','),
       value: value.value,
       categoryId: idOfCategory.value,
     };
 
-    fetch('http://localhost:1235/kruki/create/symbol', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+    this.setState({ symbolToStore: newSymbol });
+    // actions.addSymbol(newSymbol);
+  };
 
-      //make sure to serialize your JSON body
-      body: JSON.stringify(newSymbol),
-    }).then(response => {});
+  componentDidUpdate = () => {
+    sendNewSymbolToServer(API + API_SEND_NEW_SYMBOL, this.state.symbolToStore);
   };
 
   render() {
