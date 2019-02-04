@@ -14,7 +14,7 @@ const ListOfSymbols = (props: Props) => {
     <Table striped bordered hover className="categoryTable">
       <thead>
         <tr>
-          <th>#</th>
+          {/* <th>#</th> */}
           <th>Вид</th>
           <th>Название</th>
           <th>Высота</th>
@@ -24,7 +24,11 @@ const ListOfSymbols = (props: Props) => {
       </thead>
       <tbody>
         {props.symbols.map(symbol => (
-          <SymbolRow key={symbol._id} symbol={symbol} handleClick={props.handleClick}/>
+          <SymbolRow
+            key={symbol._id}
+            symbol={symbol}
+            handleClick={props.handleClick}
+          />
         ))}
       </tbody>
     </Table>

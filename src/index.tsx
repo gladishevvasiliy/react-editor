@@ -6,12 +6,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers';
 import Page from './components/containers/Page/index';
-import { Category } from './Models';
-import { API } from './res/constants';
 import './style.css';
 // @ts-ignore
-import { Container, Col, Row } from 'react-bootstrap';
-
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
   rootReducer,

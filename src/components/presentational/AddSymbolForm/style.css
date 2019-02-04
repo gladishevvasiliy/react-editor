@@ -1,3 +1,6 @@
 .addSymbolForm {
   padding: 20px;
 }
+.feedback-form{
+  display: block !important;
+}
