@@ -1,21 +1,22 @@
 import * as React from 'react';
-import isNil from 'lodash';
-
-//redux
+import { Container, Col, Row } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {
+  setData,
+  openModalConfirmRemove,
+  closeModalConfirmRemove,
+  removeSymbol,
+} from '../../../actions';
 
-import { setData } from '../../../actions';
 import ShowSymbolsContainer from '../ShowSymbolsContainer/index';
 import Header from '../../presentational/Header/index';
 import Navigation from '../../presentational/Navigation';
 import AddSymbolContainer from '../AddSymbolContainer';
 import { API, API_GET_ALL } from '../../../res/constants';
-import { Container, Col, Row } from 'react-bootstrap';
-import data from '../../../res/source.json';
-import { getDataFromServer } from '../../../res/utils';
-
+import { getDataFromServer, removeSymbolFromServer } from '../../../res/utils';
+import ModalConfirmRemove from '../../presentational/ModalConfirmRemove';
 class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -23,15 +24,27 @@ class Page extends React.Component {
 
   componentDidMount = () => {
     const { actions } = this.props;
-    // getDataFromServer(API + API_GET_ALL).then(data => {
-    //   actions.setData(data);
-    // });
-
-    actions.setData(data);
+    getDataFromServer(API + API_GET_ALL).then(data => {
+      actions.setData(data);
+    });
   };
+
+  handleCloseModal = () => {
+    const { actions } = this.props;
+    actions.closeModalConfirmRemove();
+  };
+
+  removeSymbol = () => {
+    const { actions, removingSymbolCategoryId, removingSymbolId } = this.props;
+    actions.removeSymbol(removingSymbolCategoryId, removingSymbolId);
+    actions.closeModalConfirmRemove();
+    const url = `${API}/${removingSymbolCategoryId}/remove/${removingSymbolId}`
+    removeSymbolFromServer(url);
+  };
+
   render() {
     if (this.props.list.length === 0) return null;
-    const { list } = this.props;
+    const { list, showModalConfirmRemove } = this.props;
     return (
       <div>
         <Header />
@@ -45,6 +58,11 @@ class Page extends React.Component {
               <ShowSymbolsContainer symbolList={list} />
             </Col>
           </Row>
+          <ModalConfirmRemove
+            show={showModalConfirmRemove}
+            handleCloseModal={this.handleCloseModal}
+            removeSymbol={this.removeSymbol}
+          />
         </Container>
       </div>
     );
@@ -52,11 +70,17 @@ class Page extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ setData }, dispatch),
+  actions: bindActionCreators(
+    { setData, openModalConfirmRemove, closeModalConfirmRemove, removeSymbol },
+    dispatch
+  ),
 });
 
 const mapStateToProps = state => ({
   list: state.list,
+  showModalConfirmRemove: state.modal.showModalConfirmRemove,
+  removingSymbolCategoryId: state.modal.removingSymbolCategoryId,
+  removingSymbolId: state.modal.removingSymbolId,
 });
 
 export default connect(

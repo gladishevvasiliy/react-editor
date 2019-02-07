@@ -59,7 +59,6 @@ class AddSymbolContainer extends React.Component {
       value,
       idOfCategory,
     } = event.target.elements;
-    console.log(event.currentTarget);
 
     const newSymbol = {
       name: name.value,
@@ -70,12 +69,11 @@ class AddSymbolContainer extends React.Component {
           ? []
           : opts.value.match(/[^,\s][^\,][А-я][^,\s]*/gi),
       value: value.value,
-      categoryId: idOfCategory.value,
     };
 
-    console.log(newSymbol);
-    actions.addSymbol(newSymbol);
-    sendNewSymbolToServer(API + API_SEND_NEW_SYMBOL, newSymbol);
+    const url = `${API}/${idOfCategory.value}${API_SEND_NEW_SYMBOL}`
+    actions.addSymbol(newSymbol, idOfCategory.value);
+    sendNewSymbolToServer(url, newSymbol);
   };
 
   render() {

@@ -13,7 +13,12 @@ const CategoryOfSymbols = (props: Category & Props) => {
   return (
     <Card className="categoryOfSymbols">
       <Card.Header id={props.name}>{props.name}</Card.Header>
-      <ListOfSymbols symbols={props.symbols} handleClick={props.handleClick} />
+      <ListOfSymbols
+        symbols={props.symbols}
+        handleClick={props.handleClick}
+        handleClickRemoveButton={props.handleClickRemoveButton}
+        categoryId={props.categoryId}
+      />
       <Card.Body />
     </Card>
   );

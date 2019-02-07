@@ -1,12 +1,17 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-// redux
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers';
 import Page from './components/containers/Page/index';
 import './style.css';
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTrashAlt, faPen } from '@fortawesome/free-solid-svg-icons'
+ 
+library.add(faTrashAlt, faPen)
+
 // @ts-ignore
 /* eslint-disable no-underscore-dangle */
 const store = createStore(

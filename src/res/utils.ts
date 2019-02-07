@@ -8,26 +8,26 @@ type NewSymbol = {
 };
 
 export const sendNewSymbolToServer = (url: string, newSymbol: NewSymbol) => {
-  // console.log(newSymbol);
-  // console.log(newSymbol.opts);
-  // newSymbol.opts = [];
-  console.log(newSymbol);
-  console.log(JSON.stringify(newSymbol));
   fetch(url, {
-    method: 'post',
+    method: 'put',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
 
     body: JSON.stringify({
-      name: 'lol',
-      pitch: 'lol',
-      sounds: 1,
-      opts: 'lol',
-      value: 'lol',
-      categoryId: '5c1d696fd1e96b1c61a3d57d',
+      name: newSymbol.name,
+      pitch: newSymbol.pitch,
+      sounds: newSymbol.sounds,
+      opts: newSymbol.opts,
+      value: newSymbol.value,
     }),
+  }).then(response => {});
+};
+
+export const removeSymbolFromServer = (url: string) => {
+  fetch(url, {
+    method: 'put',
   }).then(response => {});
 };
 
@@ -37,3 +37,4 @@ export const getDataFromServer = (url: string) => {
     return data;
   });
 };
+

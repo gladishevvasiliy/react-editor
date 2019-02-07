@@ -1,12 +1,15 @@
 const SET_DATA = 'SET_DATA';
 const ADD_SYMBOL = 'ADD_SYMBOL';
+const OPEN_MODAL_CONFIRM_REMOVE ='OPEN_MODAL_CONFIRM_REMOVE';
+const CLOSE_MODAL_CONFIRM_REMOVE ='CLOSE_MODAL_CONFIRM_REMOVE';
+const REMOVE_SYMBOL = 'REMOVE_SYMBOL';
 
-export { SET_DATA, ADD_SYMBOL };
+export { SET_DATA, ADD_SYMBOL, CLOSE_MODAL_CONFIRM_REMOVE, OPEN_MODAL_CONFIRM_REMOVE, REMOVE_SYMBOL };
 
 // API
 
-export const API = 'http://localhost:1235/kruki';
+export const API = 'http://localhost:1235/kruk';
 
 export const API_GET_ALL = '/all';
 
-export const API_SEND_NEW_SYMBOL = '/create/symbol';
+export const API_SEND_NEW_SYMBOL = '/add';
