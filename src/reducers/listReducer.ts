@@ -1,9 +1,8 @@
 import {
   SET_DATA,
   ADD_SYMBOL,
+  EDIT_SYMBOL,
   REMOVE_SYMBOL,
-  API,
-  API_SEND_NEW_SYMBOL,
 } from '../res/constants';
 import { sendNewSymbolToServer } from '../res/utils';
 import { random, findIndex } from 'lodash';
@@ -18,7 +17,7 @@ export default (state = initialState, action: AnyAction) => {
     }
 
     case ADD_SYMBOL: {
-      const {newSymbol, categoryId} = action.payload;
+      const { newSymbol, categoryId } = action.payload;
       const categoryToInsert = state.find(
         category => category._id === categoryId
       );
@@ -33,7 +32,25 @@ export default (state = initialState, action: AnyAction) => {
       categoryToInsert.symbols.push(newSymbolToCategory);
       return [...state];
     }
-[]
+
+    case EDIT_SYMBOL: {
+      const { editedSymbol, categoryId } = action.payload;
+      const symbolsToEdit = state.find(category => category._id === categoryId)
+        .symbols;
+
+      const newSymbols = symbolsToEdit.map(symbol => {
+        if (symbol._id === editedSymbol._id) {
+          return editedSymbol;
+        } else return symbol;
+      });
+
+      state.map(category => {
+        if (category._id === categoryId) {
+          category.symbols = newSymbols;
+        }
+      });
+      return [...state];
+    }
     case REMOVE_SYMBOL: {
       const { categoryId, symbolId } = action.payload;
       const category = state.find(category => category._id === categoryId);

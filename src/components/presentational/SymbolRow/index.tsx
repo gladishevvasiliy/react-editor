@@ -7,10 +7,11 @@ import './style.css';
 interface Props {
   symbol: Symbol;
   handleClickRemoveButton: Function;
+  handleClickEditButton: Function;
   categoryId: String;
 }
 
-const SymbolRow = ({ symbol, categoryId, handleClickRemoveButton }: Props) => {
+const SymbolRow = ({ symbol, categoryId, handleClickRemoveButton, handleClickEditButton }: Props) => {
   return (
     <tr id={symbol._id} key={symbol._id}>
       {/* <th className="symbolId">{symbol._id}</th> */}
@@ -29,9 +30,19 @@ const SymbolRow = ({ symbol, categoryId, handleClickRemoveButton }: Props) => {
           onClick={props => {
             handleClickRemoveButton(categoryId, symbol._id);
           }}
+          className="symbol-row-button"
           variant="danger"
         >
           <FontAwesomeIcon icon="trash-alt" />
+        </Button>
+        <Button
+          onClick={props => {
+            handleClickEditButton(categoryId, symbol);
+          }}
+          variant="primary"
+          className="symbol-row-button"
+        >
+          <FontAwesomeIcon icon="pen" />
         </Button>
       </th>
     </tr>

@@ -17,6 +17,7 @@ const CategoryOfSymbols = (props: Category & Props) => {
         symbols={props.symbols}
         handleClick={props.handleClick}
         handleClickRemoveButton={props.handleClickRemoveButton}
+        handleClickEditButton={props.handleClickEditButton}
         categoryId={props.categoryId}
       />
       <Card.Body />

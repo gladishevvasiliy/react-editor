@@ -5,6 +5,7 @@ type NewSymbol = {
   opts: Array<String>;
   value: String;
   categoryId: String;
+  id: Number;
 };
 
 export const sendNewSymbolToServer = (url: string, newSymbol: NewSymbol) => {
@@ -16,19 +17,42 @@ export const sendNewSymbolToServer = (url: string, newSymbol: NewSymbol) => {
     },
 
     body: JSON.stringify({
+      id: newSymbol.id,
       name: newSymbol.name,
       pitch: newSymbol.pitch,
       sounds: newSymbol.sounds,
       opts: newSymbol.opts,
       value: newSymbol.value,
     }),
-  }).then(response => {});
+  }).then(response => { });
 };
+
+export const editedSymbolSendToServer = (url: string, newSymbol: NewSymbol) => {
+  fetch(url, {
+    method: 'put',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+
+    body: JSON.stringify({
+      id: newSymbol.id,
+      name: newSymbol.name,
+      pitch: newSymbol.pitch,
+      sounds: newSymbol.sounds,
+      opts: newSymbol.opts,
+      value: newSymbol.value,
+    }),
+  }).then(response => { });
+};
+
+
+
 
 export const removeSymbolFromServer = (url: string) => {
   fetch(url, {
     method: 'put',
-  }).then(response => {});
+  }).then(response => { });
 };
 
 export const getDataFromServer = (url: string) => {

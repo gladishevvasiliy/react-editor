@@ -1,6 +1,10 @@
 import {
   OPEN_MODAL_CONFIRM_REMOVE,
   CLOSE_MODAL_CONFIRM_REMOVE,
+  OPEN_MODAL_EDIT_SYMBOL,
+  CLOSE_MODAL_EDIT_SYMBOL,
+  OPEN_MODAL_ADD_CATEGORY,
+  CLOSE_MODAL_ADD_CATEGORY
 } from '../res/constants';
 import { AnyAction } from 'redux';
 
@@ -17,6 +21,7 @@ export default (state = initialState, action: AnyAction) => {
         removingSymbolCategoryId: categoryId,
       };
     }
+    
     case CLOSE_MODAL_CONFIRM_REMOVE: {
       return {
         ...state,
@@ -25,6 +30,41 @@ export default (state = initialState, action: AnyAction) => {
         removingSymbolCategoryId: null,
       };
     }
+
+    case OPEN_MODAL_EDIT_SYMBOL: {
+      const { categoryId, symbol } = action.payload
+      return {
+        ...state,
+        showModalEditSymbol: true,
+        editingSymbol: symbol,
+        editingSymbolCategoryId: categoryId,
+      };
+    }
+
+    case CLOSE_MODAL_EDIT_SYMBOL: {
+      return {
+        ...state,
+        showModalEditSymbol: false,
+        editingSymbol: null,
+        editingSymbolCategoryId: null,
+      };
+    }
+    
+    case OPEN_MODAL_ADD_CATEGORY: {
+      return {
+        ...state,
+        showModalAddCategory: true
+      }
+    }
+
+    case CLOSE_MODAL_ADD_CATEGORY: {
+      return {
+        ...state,
+        showModalAddCategory: false
+      }
+    }
+
+
     default: {
       return state;
     }

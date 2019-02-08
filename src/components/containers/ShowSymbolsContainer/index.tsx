@@ -4,7 +4,7 @@ import { Category } from '../../../Models';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { openModalConfirmRemove } from '../../../actions';
+import { openModalConfirmRemove, openModalEditSymbol } from '../../../actions';
 import CategoryOfSymbols from '../../presentational/CategoryOfSymbols/index';
 
 interface IShowSymbolsContainerProps {
@@ -24,6 +24,11 @@ class ShowSymbolsContainer extends React.Component<
     actions.openModalConfirmRemove(symbolId, categoryId);
   };
 
+  openModalEditSymbol = (symbol, categoryId) => {
+    const { actions } = this.props;
+    actions.openModalEditSymbol(categoryId, symbol);
+  };
+
   render() {
     const { symbolList } = this.props;
     return (
@@ -40,6 +45,7 @@ class ShowSymbolsContainer extends React.Component<
               symbols={category.symbols}
               handleClick={this.onClickRow}
               handleClickRemoveButton={this.openModalConfirmRemove}
+              handleClickEditButton={this.openModalEditSymbol}
             />
           );
         })}
@@ -48,10 +54,10 @@ class ShowSymbolsContainer extends React.Component<
   }
 }
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ openModalConfirmRemove }, dispatch),
+  actions: bindActionCreators({ openModalConfirmRemove, openModalEditSymbol }, dispatch),
 });
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => ( { } )
 
 export default connect(
   mapStateToProps,

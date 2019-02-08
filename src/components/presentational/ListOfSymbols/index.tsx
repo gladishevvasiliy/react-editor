@@ -30,6 +30,7 @@ const ListOfSymbols = (props: Props) => {
             symbol={symbol}
             handleClick={props.handleClick}
             handleClickRemoveButton={props.handleClickRemoveButton}
+            handleClickEditButton={props.handleClickEditButton}
             categoryId={props.categoryId}
           />
         ))}
