@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "homepage": "https://gladishevvasiliy.github.io/react-editor/",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "watch": "webpack --watch",
-    "dev": "webpack-dev-server --open"
+    "dev": "webpack-dev-server --open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
@@ -55,6 +58,7 @@
     "@types/lodash": "^4.14.119",
     "@types/redux-form": "^7.4.16",
     "bootstrap": "^3.3.7",
+    "gh-pages": "^2.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",

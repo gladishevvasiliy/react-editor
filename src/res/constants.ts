@@ -25,7 +25,7 @@ export {
 
 // API
 
-export const API = 'http://localhost:1235/kruk';
+export const API = 'https://84.201.133.135:8443/kruk';
 
 export const API_GET_ALL = '/all';
 

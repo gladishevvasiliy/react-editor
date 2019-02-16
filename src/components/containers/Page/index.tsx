@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import {
   setData,
   openModalConfirmRemove,
@@ -22,17 +23,21 @@ import { getDataFromServer, removeSymbolFromServer } from '../../../res/utils';
 import ModalConfirmRemove from '../../presentational/ModalConfirmRemove';
 import ModalEditSymbol from '../../presentational/ModalEditSymbol';
 import ModalAddCategory from '../../presentational/ModalAddCategory';
-
+import './style.css'
 
 class Page extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isLoading: true,
+    }
   }
 
   componentDidMount = () => {
     const { actions } = this.props;
     getDataFromServer(API + API_GET_ALL).then(data => {
       actions.setData(data);
+      this.setState({isLoading: false})
     });
   };
 
@@ -72,8 +77,17 @@ class Page extends React.Component {
   }
 
   render() {
-    if (this.props.list.length === 0) return null;
+    const { isLoading } = this.state;
     const { list, showModalConfirmRemove, showModalEditSymbol, showModalAddCategory } = this.props;
+    if (isLoading) {
+      return (
+        <React.Fragment>
+            <h1 className="title">Ба1за знаме1нъ</h1>
+          <FontAwesomeIcon icon="spinner" spin size="6x" className="loading-spinner"/>
+        </React.Fragment>
+
+      )
+    }
     return (
       <div>
         <Header />
