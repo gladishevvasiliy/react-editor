@@ -1,20 +1,25 @@
-import { SET_DATA, ADD_SYMBOL } from '../res/constants';
-import { random } from 'lodash';
+import {
+  SET_DATA,
+  ADD_SYMBOL,
+  EDIT_SYMBOL,
+  REMOVE_SYMBOL,
+} from '../res/constants';
+import { sendNewSymbolToServer } from '../res/utils';
+import { random, findIndex } from 'lodash';
 import { AnyAction } from 'redux';
 
 const initialState: Array<Object> = [];
 
 export default (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    // помещает в store.list передаваемые ему значения (в нашем случае, список стран от API)
     case SET_DATA: {
       return action.payload;
     }
 
     case ADD_SYMBOL: {
-      const newSymbol = action.payload;
+      const { newSymbol, categoryId } = action.payload;
       const categoryToInsert = state.find(
-        category => category._id === newSymbol.categoryId
+        category => category._id === categoryId
       );
       const newSymbolToCategory = {
         name: newSymbol.name,
@@ -25,7 +30,35 @@ export default (state = initialState, action: AnyAction) => {
         _id: random(1, 1000000),
       };
       categoryToInsert.symbols.push(newSymbolToCategory);
-      console.log('ADD_SYMBOL');
+      return [...state];
+    }
+
+    case EDIT_SYMBOL: {
+      const { editedSymbol, categoryId } = action.payload;
+      const symbolsToEdit = state.find(category => category._id === categoryId)
+        .symbols;
+
+      const newSymbols = symbolsToEdit.map(symbol => {
+        if (symbol._id === editedSymbol._id) {
+          return editedSymbol;
+        } else return symbol;
+      });
+
+      state.map(category => {
+        if (category._id === categoryId) {
+          category.symbols = newSymbols;
+        }
+      });
+      return [...state];
+    }
+    case REMOVE_SYMBOL: {
+      const { categoryId, symbolId } = action.payload;
+      const category = state.find(category => category._id === categoryId);
+      const indexOfSymbol = findIndex(
+        category.symbols,
+        symbol => symbol._id === symbolId
+      );
+      category.symbols.splice(indexOfSymbol, 1);
       return [...state];
     }
 

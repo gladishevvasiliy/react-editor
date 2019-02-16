@@ -20,6 +20,7 @@ const ListOfSymbols = (props: Props) => {
           <th>Высота</th>
           <th>Кол-во звуков</th>
           <th>Опции</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +29,9 @@ const ListOfSymbols = (props: Props) => {
             key={symbol._id}
             symbol={symbol}
             handleClick={props.handleClick}
+            handleClickRemoveButton={props.handleClickRemoveButton}
+            handleClickEditButton={props.handleClickEditButton}
+            categoryId={props.categoryId}
           />
         ))}
       </tbody>

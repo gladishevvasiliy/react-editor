@@ -2,11 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { reduxForm, initialize } from 'redux-form';
-import { isNil } from 'lodash';
+import { Card } from 'react-bootstrap';
 import AddSymbolForm from '../../presentational/AddSymbolForm';
 import { addSymbol } from '../../../actions';
 import { sendNewSymbolToServer } from '../../../res/utils';
 import { API, API_SEND_NEW_SYMBOL } from '../../../res/constants';
+
 
 const validate = values => {
   const errors = {};
@@ -49,7 +50,7 @@ class AddSymbolContainer extends React.Component {
   }
 
   onSendForm = event => {
-    const { actions } = this.props;
+    const { actions, list } = this.props;
     event.preventDefault();
     const {
       name,
@@ -59,9 +60,11 @@ class AddSymbolContainer extends React.Component {
       value,
       idOfCategory,
     } = event.target.elements;
-    console.log(event.currentTarget);
+
+    const idInCategory = list.find(category => category._id === idOfCategory.value).symbols.length + 1
 
     const newSymbol = {
+      id: idInCategory,
       name: name.value,
       pitch: pitch.value,
       sounds: sounds.value,
@@ -70,30 +73,34 @@ class AddSymbolContainer extends React.Component {
           ? []
           : opts.value.match(/[^,\s][^\,][А-я][^,\s]*/gi),
       value: value.value,
-      categoryId: idOfCategory.value,
     };
 
-    console.log(newSymbol);
-    actions.addSymbol(newSymbol);
-    sendNewSymbolToServer(API + API_SEND_NEW_SYMBOL, newSymbol);
+    actions.addSymbol(newSymbol, idOfCategory.value);
+    const url = `${API}/${idOfCategory.value}${API_SEND_NEW_SYMBOL}`
+    sendNewSymbolToServer(url, newSymbol);
   };
 
   render() {
     const { list } = this.props;
     return (
-      <AddSymbolForm
-        onSendForm={this.onSendForm}
-        nameAndIdOfCategories={list.map(item => {
-          return { nameOfCategory: item.name, idOfCategory: item._id };
-        })}
-      />
+      <Card>
+        <Card.Header>Добавить символ</Card.Header>
+        <AddSymbolForm
+          onSendForm={this.onSendForm}
+          nameAndIdOfCategories={list.map(item => {
+            return { nameOfCategory: item.name, idOfCategory: item._id };
+          })}
+        />
+      </Card>
+
+
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ addSymbol }, dispatch),
-  initializePost: function(symbolData) {
+  initializePost: function (symbolData) {
     dispatch(initialize('symbolToServer', symbolData));
   },
 });

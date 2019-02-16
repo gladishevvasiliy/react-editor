@@ -16,3 +16,8 @@
 .symbolId {
     font-size: 12px !important;
 }
+
+.symbol-row-button {
+    width: 40px;
+    margin-right: 8px;
+}

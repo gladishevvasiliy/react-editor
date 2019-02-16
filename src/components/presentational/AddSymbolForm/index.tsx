@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Card, Col, Button } from 'react-bootstrap';
+import { Form, Col, Button } from 'react-bootstrap';
 import { Field } from 'redux-form';
 import './style.css';
 
@@ -60,10 +60,8 @@ export default class AddSymbolForm extends React.Component {
     </React.Fragment>
   );
   render() {
-    const { onSendForm, nameAndIdOfCategories } = this.props;
+    const { onSendForm, nameAndIdOfCategories, isEditing } = this.props;
     return (
-      <Card>
-        <Card.Header>Добавить символ</Card.Header>
         <Form className="addSymbolForm" onSubmit={onSendForm}>
           <Form.Row>
             <Form.Group as={Col} md="3">
@@ -123,9 +121,8 @@ export default class AddSymbolForm extends React.Component {
               />
             </Form.Group>
           </Form.Row>
-          <Button type="submit">Добавить символ</Button>
+          <Button type="submit">{isEditing ? "Сохранить изменения" : "Добавить символ" }</Button>
         </Form>
-      </Card>
     );
   }
 }
