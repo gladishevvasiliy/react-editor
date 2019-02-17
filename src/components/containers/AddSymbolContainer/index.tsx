@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
-import { reduxForm, initialize } from 'redux-form';
+import { reduxForm, initialize, getFormValues } from 'redux-form';
 import { Card } from 'react-bootstrap';
+import { isNil } from 'lodash'
 import AddSymbolForm from '../../presentational/AddSymbolForm';
 import { addSymbol } from '../../../actions';
 import { sendNewSymbolToServer } from '../../../res/utils';
@@ -39,12 +40,12 @@ class AddSymbolContainer extends React.Component {
     const { initializePost } = this.props;
 
     const symbolData = {
-      name: 'Параклит',
-      pitch: 'Соль',
+      name: '',
+      pitch: '',
       sounds: '1',
-      value: '<span>mda</span>',
+      value: '<span></span>',
       opts: '',
-      idOfCategory: '5c1d696fd1e96b1c61a3d57d',
+      idOfCategory: '',
     };
     initializePost(symbolData);
   }
@@ -81,12 +82,13 @@ class AddSymbolContainer extends React.Component {
   };
 
   render() {
-    const { list } = this.props;
+    const { list, formStates } = this.props;
     return (
       <Card>
         <Card.Header>Добавить символ</Card.Header>
         <AddSymbolForm
           onSendForm={this.onSendForm}
+          preview={isNil(formStates) ? null : formStates.value}
           nameAndIdOfCategories={list.map(item => {
             return { nameOfCategory: item.name, idOfCategory: item._id };
           })}
@@ -107,6 +109,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   list: state.list,
+  formStates: getFormValues('symbolToServer')(state),
 });
 
 export default compose(

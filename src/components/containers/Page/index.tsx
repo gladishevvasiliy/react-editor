@@ -79,15 +79,15 @@ class Page extends React.Component {
   render() {
     const { isLoading } = this.state;
     const { list, showModalConfirmRemove, showModalEditSymbol, showModalAddCategory } = this.props;
-    if (isLoading) {
-      return (
-        <React.Fragment>
-            <h1 className="title">Ба1за знаме1нъ</h1>
-          <FontAwesomeIcon icon="spinner" spin size="6x" className="loading-spinner"/>
-        </React.Fragment>
+    // if (isLoading) {
+    //   return (
+    //     <React.Fragment>
+    //         <h1 className="title">Ба1за знаме1нъ</h1>
+    //       <FontAwesomeIcon icon="spinner" spin size="6x" className="loading-spinner"/>
+    //     </React.Fragment>
 
-      )
-    }
+    //   )
+    // }
     return (
       <div>
         <Header />
