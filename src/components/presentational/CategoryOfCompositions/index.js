@@ -1,10 +1,10 @@
 import * as React from 'react'
 // @ts-ignore
 import { Card, Collapse } from 'react-bootstrap'
-import ListOfSymbols from '../ListOfSymbols'
+import ListOfCompositions from '../ListOfCompositions'
 import './style.css'
 
-class CategoryOfSymbols extends React.Component {
+class CategoryOfCompositions extends React.Component {
   constructor(props) {
     super(props)
 
@@ -15,9 +15,10 @@ class CategoryOfSymbols extends React.Component {
 
   render() {
     const { open } = this.state
+
     const {
       name,
-      symbols,
+      compositions,
       handleClick,
       handleClickRemoveButton,
       handleClickEditButton,
@@ -36,8 +37,8 @@ class CategoryOfSymbols extends React.Component {
         </Card.Header>
         <Collapse in={open}>
           <div id={`${name}-collapse`}>
-            <ListOfSymbols
-              symbols={symbols}
+            <ListOfCompositions
+              compositions={compositions}
               handleClick={handleClick}
               handleClickRemoveButton={handleClickRemoveButton}
               handleClickEditButton={handleClickEditButton}
@@ -50,4 +51,4 @@ class CategoryOfSymbols extends React.Component {
   }
 }
 
-export default CategoryOfSymbols
+export default CategoryOfCompositions

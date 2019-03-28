@@ -2,7 +2,13 @@ import * as React from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
+/*
+TODO
+1. Получать от сервера и крюки и попевки в Маин
+2. КИдаем это в редакс.
+3. В Крюках подключаем крюки, в Попевках - попевки
+4. В попевках пока только добавление и удаление
+*/
 import {
   setData,
   openModalConfirmRemove,
@@ -13,9 +19,9 @@ import {
   removeSymbol,
 } from '../../actions'
 
-import ShowSymbolsContainer from '../../components/containers/ShowSymbolsContainer'
+import ShowCompositionsContainer from '../../components/containers/ShowCompositionsContainer'
 import Navigation from '../../components/presentational/Navigation'
-import AddSymbolContainer from '../../components/containers/AddSymbolContainer'
+import AddCompositionContainer from '../../components/containers/AddCompositionContainer'
 import { API } from '../../res/constants'
 import { removeSymbolFromServer } from '../../res/utils'
 import ModalConfirmRemove from '../../components/presentational/ModalConfirmRemove'
@@ -76,11 +82,11 @@ class AddCompositionPage extends React.Component {
               />
             </Col>
             <Col className="mainContainer" sm={8}>
-              <AddSymbolContainer />
-              <ShowSymbolsContainer symbolList={list} />
+              <AddCompositionContainer />
+              <ShowCompositionsContainer compositionList={list} />
             </Col>
           </Row>
-          <ModalConfirmRemove
+          {/*<ModalConfirmRemove
             show={showModalConfirmRemove}
             handleCloseModal={this.handleCloseModalConfirmRemove}
             removeSymbol={this.removeSymbol}
@@ -93,7 +99,7 @@ class AddCompositionPage extends React.Component {
             show={showModalAddCategory}
             handleCloseModal={this.closeModalAddCategory}
             addCategory={this.addCategory}
-          />
+          />*/}
         </Container>
       </div>
     )
@@ -103,7 +109,6 @@ class AddCompositionPage extends React.Component {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      setData,
       openModalConfirmRemove,
       closeModalConfirmRemove,
       closeModalEditSymbol,
@@ -116,12 +121,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  list: state.list,
-  showModalConfirmRemove: state.modal.showModalConfirmRemove,
-  showModalEditSymbol: state.modal.showModalEditSymbol,
-  showModalAddCategory: state.modal.showModalAddCategory,
-  removingSymbolCategoryId: state.modal.removingSymbolCategoryId,
-  removingSymbolId: state.modal.removingSymbolId,
+  list: state.compositions,
+  // showModalConfirmRemove: state.modal.showModalConfirmRemove,
+  // removingSymbolCategoryId: state.modal.removingSymbolCategoryId,
+  // removingSymbolId: state.modal.removingSymbolId,
 })
 
 export default connect(

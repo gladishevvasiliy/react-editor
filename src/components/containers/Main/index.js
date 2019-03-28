@@ -1,36 +1,43 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Header from '../../presentational/Header';
-import AddSymbolPage from '../../../pages/AddSymbolPage';
-import AddCompositionPage from '../../../pages/AddCompositionPage';
-import { API, API_GET_ALL } from '../../../res/constants';
-import { getDataFromServer } from '../../../res/utils';
-
-import { setData } from '../../../actions';
+import Header from '../../presentational/Header'
+import AddSymbolPage from '../../../pages/AddSymbolPage'
+import AddCompositionPage from '../../../pages/AddCompositionPage'
+import {
+  API,
+  API_GET_ALL_COMPOSITIONS,
+  API_GET_ALL_SYMBOLS,
+} from '../../../res/constants'
+import { getDataFromServer } from '../../../res/utils'
+import { setSymbols, setCompositions } from '../../../actions'
 
 class Main extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       isLoading: true,
-    };
+    }
   }
 
   componentDidMount = () => {
-    const { actions } = this.props;
+    const { actions } = this.props
 
-    getDataFromServer(API + API_GET_ALL).then((data) => {
-      actions.setData(data);
-      this.setState({ isLoading: false });
-    });
-  };
+    getDataFromServer(API + API_GET_ALL_COMPOSITIONS).then(data => {
+      actions.setCompositions(data)
+    })
+
+    getDataFromServer(API + API_GET_ALL_SYMBOLS).then(data => {
+      actions.setSymbols(data)
+      this.setState({ isLoading: false })
+    })
+  }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading } = this.state
     if (isLoading) {
       return (
         <React.Fragment>
@@ -42,7 +49,7 @@ class Main extends Component {
             className="loading-spinner"
           />
         </React.Fragment>
-      );
+      )
     }
     return (
       <Router>
@@ -50,19 +57,17 @@ class Main extends Component {
         <Route exact path="/" component={AddSymbolPage} />
         <Route path="/compositions" component={AddCompositionPage} />
       </Router>
-    );
+    )
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ setData }, dispatch),
-});
+  actions: bindActionCreators({ setSymbols, setCompositions }, dispatch),
+})
 
-const mapStateToProps = state => ({
-  list: state.list,
-});
+const mapStateToProps = state => ({})
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(Main);
+  mapDispatchToProps
+)(Main)

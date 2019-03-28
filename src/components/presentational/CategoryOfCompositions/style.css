@@ -1,0 +1,12 @@
+.categoryOfSymbols {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.category-tab {
+  cursor: pointer;
+}
+
+.category-tab:hover {
+  box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
+  cursor: pointer;
+}

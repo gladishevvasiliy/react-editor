@@ -10402,10 +10402,7 @@ const KOLESO = [
     tone: '6',
   },
 ]
-// export const get = () => {
-//   KOLESO.map((symbol,i) => symbol.id=(i+1));
-//   console.log(JSON.stringify(KOLESO));
-// }
+
 export const COMPOSITIONS = [
   { id: 1, label: 'Кичиги', value: KICHIGI },
   { id: 2, label: 'Мережа', value: MEREZHA },

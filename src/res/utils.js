@@ -14,8 +14,8 @@ export const sendNewSymbolToServer = (url, newSymbol) => {
       opts: newSymbol.opts,
       value: newSymbol.value,
     }),
-  }).then((response) => {});
-};
+  }).then(response => {})
+}
 
 export const editedSymbolSendToServer = (url, newSymbol) => {
   fetch(url, {
@@ -33,16 +33,34 @@ export const editedSymbolSendToServer = (url, newSymbol) => {
       opts: newSymbol.opts,
       value: newSymbol.value,
     }),
-  }).then((response) => {});
-};
+  }).then(response => {})
+}
 
-export const removeSymbolFromServer = (url) => {
+export const removeSymbolFromServer = url => {
   fetch(url, {
     method: 'put',
-  }).then((response) => {});
-};
+  }).then(response => {})
+}
 
-export const getDataFromServer = url => fetch(url).then((resp) => {
-    const data = resp.json();
-    return data;
-  });
+export const getDataFromServer = url =>
+  fetch(url).then(resp => {
+    const data = resp.json()
+    return data
+  })
+
+export const sendNewCompositionToServer = (url, newComposition) => {
+  fetch(url, {
+    method: 'put',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+
+    body: JSON.stringify({
+      id: newComposition.id,
+      name: newComposition.name,
+      tone: newComposition.tone,
+      value: newComposition.value,
+    }),
+  }).then(response => {})
+}

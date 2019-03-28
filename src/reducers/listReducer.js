@@ -1,18 +1,17 @@
 import {
-  SET_DATA,
+  SET_SYMBOLS,
   ADD_SYMBOL,
   EDIT_SYMBOL,
   REMOVE_SYMBOL,
 } from '../res/constants'
 import { sendNewSymbolToServer } from '../res/utils'
 import { random, findIndex } from 'lodash'
-import { AnyAction } from 'redux'
 
 const initialState = []
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_DATA: {
+    case SET_SYMBOLS: {
       return action.payload
     }
 
