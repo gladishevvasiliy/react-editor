@@ -1,8 +1,8 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.tsx',
+  entry: './src/index.js',
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -34,4 +34,4 @@ module.exports = {
       filename: './index.html',
     }),
   ],
-};
+}

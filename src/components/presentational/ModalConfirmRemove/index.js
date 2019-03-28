@@ -1,13 +1,7 @@
-import * as React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import * as React from 'react'
+import { Modal, Button } from 'react-bootstrap'
 
-type ModalConfirmRemove = {
-  show: boolean,
-  handleCloseModal: Function,
-  removeSymbol: Function
-}
-
-export default ({ show, handleCloseModal, removeSymbol}: ModalConfirmRemove) => (
+export default ({ show, handleCloseModal, removeSymbol }) => (
   <Modal show={show} onHide={handleCloseModal}>
     <Modal.Header closeButton>
       <Modal.Title>Подтверждение</Modal.Title>
@@ -22,4 +16,4 @@ export default ({ show, handleCloseModal, removeSymbol}: ModalConfirmRemove) => 
       </Button>
     </Modal.Footer>
   </Modal>
-);
+)

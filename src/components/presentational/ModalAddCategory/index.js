@@ -1,17 +1,7 @@
-import * as React from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import * as React from 'react'
+import { Modal, Button, Form } from 'react-bootstrap'
 
-type ModalConfirmRemove = {
-  show: boolean;
-  handleCloseModal: Function;
-  addCategory: Function;
-};
-
-export default ({
-  show,
-  handleCloseModal,
-  addCategory,
-}: ModalConfirmRemove) => (
+export default ({ show, handleCloseModal, addCategory }) => (
   <Modal show={show} onHide={handleCloseModal}>
     <Modal.Header closeButton>
       <Modal.Title>Добавление категории</Modal.Title>
@@ -20,7 +10,7 @@ export default ({
       <Form onSubmit={addCategory}>
         <Form.Label>Название категории знамен</Form.Label>
         <Form.Control type="text" placeholder="Параклит" />
-        <Button variant="primary" type="submit" >
+        <Button variant="primary" type="submit">
           Submit
         </Button>
       </Form>
@@ -31,4 +21,4 @@ export default ({
       </Button>
     </Modal.Footer>
   </Modal>
-);
+)

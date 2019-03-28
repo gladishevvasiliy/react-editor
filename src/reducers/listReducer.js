@@ -3,24 +3,24 @@ import {
   ADD_SYMBOL,
   EDIT_SYMBOL,
   REMOVE_SYMBOL,
-} from '../res/constants';
-import { sendNewSymbolToServer } from '../res/utils';
-import { random, findIndex } from 'lodash';
-import { AnyAction } from 'redux';
+} from '../res/constants'
+import { sendNewSymbolToServer } from '../res/utils'
+import { random, findIndex } from 'lodash'
+import { AnyAction } from 'redux'
 
-const initialState: Array<Object> = [];
+const initialState = []
 
-export default (state = initialState, action: AnyAction) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case SET_DATA: {
-      return action.payload;
+      return action.payload
     }
 
     case ADD_SYMBOL: {
-      const { newSymbol, categoryId } = action.payload;
+      const { newSymbol, categoryId } = action.payload
       const categoryToInsert = state.find(
         category => category._id === categoryId
-      );
+      )
       const newSymbolToCategory = {
         name: newSymbol.name,
         pitch: newSymbol.pitch,
@@ -28,42 +28,42 @@ export default (state = initialState, action: AnyAction) => {
         opts: newSymbol.opts,
         value: newSymbol.value,
         _id: random(1, 1000000),
-      };
-      categoryToInsert.symbols.push(newSymbolToCategory);
-      return [...state];
+      }
+      categoryToInsert.symbols.push(newSymbolToCategory)
+      return [...state]
     }
 
     case EDIT_SYMBOL: {
-      const { editedSymbol, categoryId } = action.payload;
+      const { editedSymbol, categoryId } = action.payload
       const symbolsToEdit = state.find(category => category._id === categoryId)
-        .symbols;
+        .symbols
 
       const newSymbols = symbolsToEdit.map(symbol => {
         if (symbol._id === editedSymbol._id) {
-          return editedSymbol;
-        } else return symbol;
-      });
+          return editedSymbol
+        } else return symbol
+      })
 
       state.map(category => {
         if (category._id === categoryId) {
-          category.symbols = newSymbols;
+          category.symbols = newSymbols
         }
-      });
-      return [...state];
+      })
+      return [...state]
     }
     case REMOVE_SYMBOL: {
-      const { categoryId, symbolId } = action.payload;
-      const category = state.find(category => category._id === categoryId);
+      const { categoryId, symbolId } = action.payload
+      const category = state.find(category => category._id === categoryId)
       const indexOfSymbol = findIndex(
         category.symbols,
         symbol => symbol._id === symbolId
-      );
-      category.symbols.splice(indexOfSymbol, 1);
-      return [...state];
+      )
+      category.symbols.splice(indexOfSymbol, 1)
+      return [...state]
     }
 
     default: {
-      return state;
+      return state
     }
   }
-};
+}

@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { Form, Col, Button, Card } from 'react-bootstrap';
-import { Field } from 'redux-form';
-import './style.css';
+import * as React from 'react'
+import { Form, Col, Button, Card } from 'react-bootstrap'
+import { Field } from 'redux-form'
+import './style.css'
 
 export default class AddSymbolForm extends React.Component {
-  
   renderInputField = ({
     input,
     title,
@@ -28,7 +27,7 @@ export default class AddSymbolForm extends React.Component {
           </Form.Control.Feedback>
         ))}
     </React.Fragment>
-  );
+  )
 
   renderSelectField = ({
     input,
@@ -59,9 +58,9 @@ export default class AddSymbolForm extends React.Component {
           </Form.Control.Feedback>
         ))}
     </React.Fragment>
-  );
+  )
   render() {
-    const { onSendForm, nameAndIdOfCategories, isEditing, preview } = this.props;
+    const { onSendForm, nameAndIdOfCategories, isEditing, preview } = this.props
     return (
       <div>
         <Form className="addSymbolForm" onSubmit={onSendForm}>
@@ -123,20 +122,22 @@ export default class AddSymbolForm extends React.Component {
               />
             </Form.Group>
           </Form.Row>
-          <Button type="submit">{isEditing ? "Сохранить изменения" : "Добавить символ" }</Button>
+          <Button type="submit">
+            {isEditing ? 'Сохранить изменения' : 'Добавить символ'}
+          </Button>
         </Form>
         <Card>
           <Card.Header>Превью</Card.Header>
           <Card.Body>
             <Card.Text>
-            <div
-          dangerouslySetInnerHTML={{ __html: preview }}
-          className="symbol-view"
-        />
+              <div
+                dangerouslySetInnerHTML={{ __html: preview }}
+                className="symbol-view"
+              />
             </Card.Text>
           </Card.Body>
         </Card>
       </div>
-    );
+    )
   }
 }

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   setData,
@@ -12,35 +11,19 @@ import {
   closeModalConfirmRemove,
   closeModalEditSymbol,
   removeSymbol,
-} from '../../../actions';
+} from '../../actions';
 
-import ShowSymbolsContainer from '../ShowSymbolsContainer/index';
-import Header from '../../presentational/Header/index';
-import Navigation from '../../presentational/Navigation';
-import AddSymbolContainer from '../AddSymbolContainer';
-import { API, API_GET_ALL } from '../../../res/constants';
-import { getDataFromServer, removeSymbolFromServer } from '../../../res/utils';
-import ModalConfirmRemove from '../../presentational/ModalConfirmRemove';
-import ModalEditSymbol from '../../presentational/ModalEditSymbol';
-import ModalAddCategory from '../../presentational/ModalAddCategory';
-import './style.css'
+import ShowSymbolsContainer from '../../components/containers/ShowSymbolsContainer';
+import Navigation from '../../components/presentational/Navigation';
+import AddSymbolContainer from '../../components/containers/AddSymbolContainer';
+import { API } from '../../res/constants';
+import { removeSymbolFromServer } from '../../res/utils';
+import ModalConfirmRemove from '../../components/presentational/ModalConfirmRemove';
+import ModalEditSymbol from '../../components/presentational/ModalEditSymbol';
+import ModalAddCategory from '../../components/presentational/ModalAddCategory';
+import './style.css';
 
-class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-    }
-  }
-
-  componentDidMount = () => {
-    const { actions } = this.props;
-    getDataFromServer(API + API_GET_ALL).then(data => {
-      actions.setData(data);
-      this.setState({isLoading: false})
-    });
-  };
-
+class AddSymbolPage extends React.Component {
   handleCloseModalConfirmRemove = () => {
     const { actions } = this.props;
     actions.closeModalConfirmRemove();
@@ -69,28 +52,22 @@ class Page extends React.Component {
     actions.closeModalAddCategory();
   };
 
-  addCategory = (e) => {
+  addCategory = e => {
     e.preventDefault();
     const { actions } = this.props;
     actions.closeModalAddCategory();
-    console.log(e.currentTarget)
-  }
+    console.log(e.currentTarget);
+  };
 
   render() {
-    const { isLoading } = this.state;
-    const { list, showModalConfirmRemove, showModalEditSymbol, showModalAddCategory } = this.props;
-    if (isLoading) {
-      return (
-        <React.Fragment>
-            <h1 className="title">Ба1за знаме1нъ</h1>
-          <FontAwesomeIcon icon="spinner" spin size="6x" className="loading-spinner"/>
-        </React.Fragment>
-
-      )
-    }
+    const {
+      list,
+      showModalConfirmRemove,
+      showModalEditSymbol,
+      showModalAddCategory,
+    } = this.props;
     return (
       <div>
-        <Header />
         <Container fluid>
           <Row>
             <Col className="sideNav" sm={2}>
@@ -151,4 +128,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Page);
+)(AddSymbolPage);
