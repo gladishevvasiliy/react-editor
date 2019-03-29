@@ -6,7 +6,7 @@ import { isNil } from 'lodash'
 import AddSymbolForm from '../../presentational/AddSymbolForm'
 import { addSymbol, editSymbol } from '../../../actions'
 import { editedSymbolSendToServer } from '../../../res/utils'
-import { API, API_EDIT_SYMBOL } from '../../../res/constants'
+import { API_KRUK, API_EDIT_SYMBOL } from '../../../res/constants'
 
 const validate = values => {
   const errors = {}
@@ -76,7 +76,7 @@ class EditSymbolContainer extends React.Component {
       value: value.value,
     }
     actions.editSymbol(newSymbol, idOfCategory.value)
-    const url = `${API}/${idOfCategory.value}${API_EDIT_SYMBOL}/${
+    const url = `${API_KRUK}/${idOfCategory.value}${API_EDIT_SYMBOL}/${
       editingSymbol._id
     }`
     editedSymbolSendToServer(url, newSymbol)

@@ -5,9 +5,14 @@ import {
   CLOSE_MODAL_EDIT_SYMBOL,
   OPEN_MODAL_ADD_CATEGORY,
   CLOSE_MODAL_ADD_CATEGORY,
+  OPEN_MODAL_CONFIRM_REMOVE_COMPOSITION,
+  CLOSE_MODAL_CONFIRM_REMOVE_COMPOSITION,
 } from '../res/constants'
 
-const initialState = { showModalConfirmRemove: false }
+const initialState = {
+  showModalConfirmRemove: false,
+  showModalConfirmRemoveComposition: false,
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -60,6 +65,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         showModalAddCategory: false,
+      }
+    }
+
+    case OPEN_MODAL_CONFIRM_REMOVE_COMPOSITION: {
+      const { categoryId, compositionId } = action.payload
+      return {
+        ...state,
+        showModalConfirmRemoveComposition: true,
+        removingCompositionId: compositionId,
+        removingCompositionCategoryId: categoryId,
+      }
+    }
+
+    case CLOSE_MODAL_CONFIRM_REMOVE_COMPOSITION: {
+      return {
+        ...state,
+        showModalConfirmRemoveComposition: false,
+        removingCompositionId: null,
+        removingCompositionCategoryId: null,
       }
     }
 

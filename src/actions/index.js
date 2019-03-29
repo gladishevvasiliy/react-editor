@@ -4,12 +4,15 @@ import {
   EDIT_SYMBOL,
   OPEN_MODAL_CONFIRM_REMOVE,
   CLOSE_MODAL_CONFIRM_REMOVE,
+  OPEN_MODAL_CONFIRM_REMOVE_COMPOSITION,
+  CLOSE_MODAL_CONFIRM_REMOVE_COMPOSITION,
   OPEN_MODAL_EDIT_SYMBOL,
   CLOSE_MODAL_EDIT_SYMBOL,
   REMOVE_SYMBOL,
   OPEN_MODAL_ADD_CATEGORY,
   CLOSE_MODAL_ADD_CATEGORY,
-  ADD_COMPOSITIONS,
+  ADD_COMPOSITION,
+  REMOVE_COMPOSITION,
   SET_COMPOSITIONS,
 } from '../res/constants'
 
@@ -39,6 +42,18 @@ export const closeModalConfirmRemove = () => ({
   type: CLOSE_MODAL_CONFIRM_REMOVE,
 })
 
+export const openModalConfirmRemoveComposition = (
+  categoryId,
+  compositionId
+) => ({
+  type: OPEN_MODAL_CONFIRM_REMOVE_COMPOSITION,
+  payload: { categoryId, compositionId },
+})
+
+export const closeModalConfirmRemoveComposition = () => ({
+  type: CLOSE_MODAL_CONFIRM_REMOVE_COMPOSITION,
+})
+
 export const openModalEditSymbol = (symbol, categoryId) => ({
   type: OPEN_MODAL_EDIT_SYMBOL,
   payload: { categoryId, symbol },
@@ -62,6 +77,11 @@ export const setCompositions = value => ({
 })
 
 export const addComposition = (newComposition, categoryId) => ({
-  type: ADD_COMPOSITIONS,
+  type: ADD_COMPOSITION,
   payload: { newComposition, categoryId },
+})
+
+export const removeComposition = (categoryId, compositionlId) => ({
+  type: REMOVE_COMPOSITION,
+  payload: { categoryId, compositionlId },
 })

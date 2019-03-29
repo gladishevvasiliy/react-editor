@@ -14,7 +14,7 @@ export const sendNewSymbolToServer = (url, newSymbol) => {
       opts: newSymbol.opts,
       value: newSymbol.value,
     }),
-  }).then(response => {})
+  }).then(() => {})
 }
 
 export const editedSymbolSendToServer = (url, newSymbol) => {
@@ -33,13 +33,13 @@ export const editedSymbolSendToServer = (url, newSymbol) => {
       opts: newSymbol.opts,
       value: newSymbol.value,
     }),
-  }).then(response => {})
+  }).then(() => {})
 }
 
 export const removeSymbolFromServer = url => {
   fetch(url, {
     method: 'put',
-  }).then(response => {})
+  }).then(() => {})
 }
 
 export const getDataFromServer = url =>
@@ -62,5 +62,20 @@ export const sendNewCompositionToServer = (url, newComposition) => {
       tone: newComposition.tone,
       value: newComposition.value,
     }),
-  }).then(response => {})
+  }).then(() => {})
+}
+
+export const sendNewCompositionCategoryToServer = (url, categoryName) => {
+  fetch(url, {
+    method: 'post',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+
+    body: JSON.stringify({
+      name: categoryName,
+      compositions: [],
+    }),
+  }).then(() => {})
 }

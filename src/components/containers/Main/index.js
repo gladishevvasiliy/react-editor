@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,11 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Header from '../../presentational/Header'
 import AddSymbolPage from '../../../pages/AddSymbolPage'
 import AddCompositionPage from '../../../pages/AddCompositionPage'
-import {
-  API,
-  API_GET_ALL_COMPOSITIONS,
-  API_GET_ALL_SYMBOLS,
-} from '../../../res/constants'
+import { API_KRUK, API_COMPOSITIONS, API_GET_ALL } from '../../../res/constants'
 import { getDataFromServer } from '../../../res/utils'
 import { setSymbols, setCompositions } from '../../../actions'
 
@@ -26,11 +23,11 @@ class Main extends Component {
   componentDidMount = () => {
     const { actions } = this.props
 
-    getDataFromServer(API + API_GET_ALL_COMPOSITIONS).then(data => {
+    getDataFromServer(API_COMPOSITIONS + API_GET_ALL).then(data => {
       actions.setCompositions(data)
     })
 
-    getDataFromServer(API + API_GET_ALL_SYMBOLS).then(data => {
+    getDataFromServer(API_KRUK + API_GET_ALL).then(data => {
       actions.setSymbols(data)
       this.setState({ isLoading: false })
     })
@@ -65,7 +62,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ setSymbols, setCompositions }, dispatch),
 })
 
-const mapStateToProps = state => ({})
+const mapStateToProps = () => ({})
 
 export default connect(
   mapStateToProps,

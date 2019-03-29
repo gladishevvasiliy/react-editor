@@ -7,7 +7,7 @@ import { isNil } from 'lodash'
 import AddSymbolForm from '../../presentational/AddSymbolForm'
 import { addSymbol } from '../../../actions'
 import { sendNewSymbolToServer } from '../../../res/utils'
-import { API, API_SEND_NEW_SYMBOL } from '../../../res/constants'
+import { API_KRUK, API_SEND_NEW } from '../../../res/constants'
 
 const validate = values => {
   const errors = {}
@@ -78,7 +78,7 @@ class AddSymbolContainer extends React.Component {
     }
 
     actions.addSymbol(newSymbol, idOfCategory.value)
-    const url = `${API}/${idOfCategory.value}${API_SEND_NEW_SYMBOL}`
+    const url = `${API_KRUK}/${idOfCategory.value}${API_SEND_NEW}`
     sendNewSymbolToServer(url, newSymbol)
   }
 

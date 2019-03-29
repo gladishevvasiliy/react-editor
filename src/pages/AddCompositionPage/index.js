@@ -2,48 +2,56 @@ import * as React from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-/*
-TODO
-1. Получать от сервера и крюки и попевки в Маин
-2. КИдаем это в редакс.
-3. В Крюках подключаем крюки, в Попевках - попевки
-4. В попевках пока только добавление и удаление
-*/
+import { isNil } from 'lodash'
+
 import {
-  setData,
-  openModalConfirmRemove,
+  openModalConfirmRemoveComposition,
   openModalAddCategory,
   closeModalAddCategory,
-  closeModalConfirmRemove,
-  closeModalEditSymbol,
-  removeSymbol,
+  closeModalConfirmRemoveComposition,
+  // closeModalEditSymbol,
+  removeComposition,
 } from '../../actions'
 
 import ShowCompositionsContainer from '../../components/containers/ShowCompositionsContainer'
-import Navigation from '../../components/presentational/Navigation'
 import AddCompositionContainer from '../../components/containers/AddCompositionContainer'
-import { API } from '../../res/constants'
-import { removeSymbolFromServer } from '../../res/utils'
 import ModalConfirmRemove from '../../components/presentational/ModalConfirmRemove'
-import ModalEditSymbol from '../../components/presentational/ModalEditSymbol'
 import ModalAddCategory from '../../components/presentational/ModalAddCategory'
+import Navigation from '../../components/presentational/Navigation'
+import {
+  API_COMPOSITIONS,
+  CREATE_COMPOSITIONS_CATEGORY,
+} from '../../res/constants'
+import {
+  removeSymbolFromServer,
+  sendNewCompositionCategoryToServer,
+} from '../../res/utils'
+
+// import ModalEditSymbol from '../../components/presentational/ModalEditSymbol'
 
 class AddCompositionPage extends React.Component {
   handleCloseModalConfirmRemove = () => {
     const { actions } = this.props
-    actions.closeModalConfirmRemove()
+    actions.closeModalConfirmRemoveComposition()
   }
 
-  handleCloseModalEditSymbol = () => {
-    const { actions } = this.props
-    actions.closeModalEditSymbol()
-  }
+  // handleCloseModalEditSymbol = () => {
+  //   const { actions } = this.props
+  //   actions.closeModalEditSymbol()
+  // }
 
-  removeSymbol = () => {
-    const { actions, removingSymbolCategoryId, removingSymbolId } = this.props
-    actions.removeSymbol(removingSymbolCategoryId, removingSymbolId)
-    actions.closeModalConfirmRemove()
-    const url = `${API}/${removingSymbolCategoryId}/remove/${removingSymbolId}`
+  removeComposition = () => {
+    const {
+      actions,
+      removingCompositionCategoryId,
+      removingCompositionId,
+    } = this.props
+    actions.removeComposition(
+      removingCompositionCategoryId,
+      removingCompositionId
+    )
+    actions.closeModalConfirmRemoveComposition()
+    const url = `${API_COMPOSITIONS}/${removingCompositionCategoryId}/remove/${removingCompositionId}`
     removeSymbolFromServer(url)
   }
 
@@ -57,18 +65,21 @@ class AddCompositionPage extends React.Component {
     actions.closeModalAddCategory()
   }
 
-  addCategory = e => {
+  addCategoryCompositions = e => {
     e.preventDefault()
     const { actions } = this.props
+    const url = `${API_COMPOSITIONS}${CREATE_COMPOSITIONS_CATEGORY}`
+    isNil(e.currentTarget[0].value)
+      ? null
+      : sendNewCompositionCategoryToServer(url, e.currentTarget[0].value)
     actions.closeModalAddCategory()
-    console.log(e.currentTarget)
   }
 
   render() {
     const {
       list,
       showModalConfirmRemove,
-      showModalEditSymbol,
+      // showModalEditSymbol,
       showModalAddCategory,
     } = this.props
     return (
@@ -86,20 +97,21 @@ class AddCompositionPage extends React.Component {
               <ShowCompositionsContainer compositionList={list} />
             </Col>
           </Row>
-          {/*<ModalConfirmRemove
+          <ModalConfirmRemove
             show={showModalConfirmRemove}
             handleCloseModal={this.handleCloseModalConfirmRemove}
-            removeSymbol={this.removeSymbol}
+            remove={this.removeComposition}
+            type="попевку"
           />
-          <ModalEditSymbol
+          {/*<ModalEditSymbol
             show={showModalEditSymbol}
             handleCloseModal={this.handleCloseModalEditSymbol}
-          />
+          />*/}
           <ModalAddCategory
             show={showModalAddCategory}
             handleCloseModal={this.closeModalAddCategory}
-            addCategory={this.addCategory}
-          />*/}
+            addCategory={this.addCategoryCompositions}
+          />
         </Container>
       </div>
     )
@@ -109,10 +121,10 @@ class AddCompositionPage extends React.Component {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      openModalConfirmRemove,
-      closeModalConfirmRemove,
-      closeModalEditSymbol,
-      removeSymbol,
+      openModalConfirmRemoveComposition,
+      closeModalConfirmRemoveComposition,
+      // closeModalEditSymbol,
+      removeComposition,
       openModalAddCategory,
       closeModalAddCategory,
     },
@@ -122,9 +134,10 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   list: state.compositions,
-  // showModalConfirmRemove: state.modal.showModalConfirmRemove,
-  // removingSymbolCategoryId: state.modal.removingSymbolCategoryId,
-  // removingSymbolId: state.modal.removingSymbolId,
+  showModalConfirmRemove: state.modal.showModalConfirmRemoveComposition,
+  removingCompositionCategoryId: state.modal.removingCompositionCategoryId,
+  removingCompositionId: state.modal.removingCompositionId,
+  showModalAddCategory: state.modal.showModalAddCategory,
 })
 
 export default connect(

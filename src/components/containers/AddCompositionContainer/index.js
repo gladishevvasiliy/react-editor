@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators, compose } from 'redux'
 import { reduxForm, initialize, getFormValues } from 'redux-form'
 import { Card } from 'react-bootstrap'
-import { isNil, mapKeys } from 'lodash'
+import { isNil, mapValues } from 'lodash'
 import AddCompositionForm from '../../presentational/AddCompositionForm'
 import { addComposition } from '../../../actions'
 import { sendNewCompositionToServer } from '../../../res/utils'
-import { API, API_SEND_NEW_COMPOSITION } from '../../../res/constants'
+import { API_COMPOSITIONS, API_SEND_NEW } from '../../../res/constants'
 
 const validate = values => {
   const errors = {}
@@ -48,28 +48,29 @@ class AddCompositionContainer extends React.Component {
   }
 
   onSendForm = event => {
-    console.log('theeeeeeeeeeeeeeee')
     const { actions, list } = this.props
     event.preventDefault()
     const { name, tone, idOfCategory } = event.target.elements
-    console.log(event.target.elements)
-    mapKeys(event.target.elements, (value, key) => {
-      value.name.includes('value') ? console.log(value.value) : null
+    const symbols = []
+    mapValues(event.target.elements, value => {
+      value.name.includes('value') ? symbols.push(value.value) : null
     })
+
+    console.log(symbols)
     const idInCategory =
       list.find(category => category._id === idOfCategory.value).compositions
         .length + 1
 
-    // const newComposition = {
-    //   id: idInCategory,
-    //   name: name.value,
-    //   tone: tone.value,
-    //   value: value.value,
-    // }
+    const newComposition = {
+      id: idInCategory,
+      name: name.value,
+      tone: tone.value,
+      value: symbols,
+    }
 
-    // actions.addComposition(newComposition, idOfCategory.value)
-    // const url = `${API}/${idOfCategory.value}${API_SEND_NEW_COMPOSITION}`
-    // sendNewCompositionToServer(url, newComposition)
+    actions.addComposition(newComposition, idOfCategory.value)
+    const url = `${API_COMPOSITIONS}/${idOfCategory.value}${API_SEND_NEW}`
+    sendNewCompositionToServer(url, newComposition)
   }
 
   render() {

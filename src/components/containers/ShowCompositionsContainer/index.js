@@ -3,23 +3,22 @@ import { isEmpty } from 'lodash'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { openModalConfirmRemove, openModalEditSymbol } from '../../../actions'
+import {
+  openModalConfirmRemoveComposition,
+  openModalEditSymbol,
+} from '../../../actions'
 import CategoryOfCompositions from '../../presentational/CategoryOfCompositions/index'
 
 class ShowCompositionsContainer extends React.Component {
-  constructor(props) {
-    super(props)
+  openModalConfirmRemoveComposition = (compositionId, categoryId) => {
+    const { actions } = this.props
+    actions.openModalConfirmRemoveComposition(compositionId, categoryId)
   }
 
-  openModalConfirmRemove = (symbolId, categoryId) => {
-    const { actions } = this.props
-    actions.openModalConfirmRemove(symbolId, categoryId)
-  }
-
-  openModalEditSymbol = (symbol, categoryId) => {
-    const { actions } = this.props
-    actions.openModalEditSymbol(categoryId, symbol)
-  }
+  // openModalEditSymbol = (symbol, categoryId) => {
+  //   const { actions } = this.props
+  //   actions.openModalEditSymbol(categoryId, symbol)
+  // }
 
   render() {
     const { compositionList } = this.props
@@ -37,7 +36,7 @@ class ShowCompositionsContainer extends React.Component {
               name={category.name}
               compositions={category.compositions}
               handleClick={this.onClickRow}
-              handleClickRemoveButton={this.openModalConfirmRemove}
+              handleClickRemoveButton={this.openModalConfirmRemoveComposition}
               handleClickEditButton={this.openModalEditSymbol}
             />
           )
@@ -48,12 +47,12 @@ class ShowCompositionsContainer extends React.Component {
 }
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
-    { openModalConfirmRemove, openModalEditSymbol },
+    { openModalConfirmRemoveComposition, openModalEditSymbol },
     dispatch
   ),
 })
 
-const mapStateToProps = state => ({})
+const mapStateToProps = () => ({})
 
 export default connect(
   mapStateToProps,

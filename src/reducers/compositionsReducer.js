@@ -1,7 +1,7 @@
 import {
   SET_COMPOSITIONS,
-  ADD_COMPOSITIONS,
-  REMOVE_COMPOSITIONS,
+  ADD_COMPOSITION,
+  REMOVE_COMPOSITION,
 } from '../res/constants'
 import { random, findIndex } from 'lodash'
 
@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
       return action.payload
     }
 
-    case ADD_COMPOSITIONS: {
+    case ADD_COMPOSITION: {
       const { newComposition, categoryId } = action.payload
       console.log(newComposition)
       const categoryToInsert = state.find(
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       return [...state]
     }
 
-    case REMOVE_COMPOSITIONS: {
+    case REMOVE_COMPOSITION: {
       const { categoryId, compositionId } = action.payload
       const category = state.find(category => category._id === categoryId)
       const indexOfComposition = findIndex(
