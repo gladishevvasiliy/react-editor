@@ -16,7 +16,7 @@ import {
 import ShowSymbolsContainer from '../../components/containers/ShowSymbolsContainer';
 import Navigation from '../../components/presentational/Navigation';
 import AddSymbolContainer from '../../components/containers/AddSymbolContainer';
-import { API } from '../../res/constants';
+import { API_KRUK } from '../../res/constants';
 import { removeSymbolFromServer } from '../../res/utils';
 import ModalConfirmRemove from '../../components/presentational/ModalConfirmRemove';
 import ModalEditSymbol from '../../components/presentational/ModalEditSymbol';
@@ -35,10 +35,11 @@ class AddSymbolPage extends React.Component {
   };
 
   removeSymbol = () => {
+    console.log('THEEEEE')
     const { actions, removingSymbolCategoryId, removingSymbolId } = this.props;
     actions.removeSymbol(removingSymbolCategoryId, removingSymbolId);
     actions.closeModalConfirmRemove();
-    const url = `${API}/${removingSymbolCategoryId}/remove/${removingSymbolId}`;
+    const url = `${API_KRUK}/${removingSymbolCategoryId}/remove/${removingSymbolId}`;
     removeSymbolFromServer(url);
   };
 
@@ -84,7 +85,7 @@ class AddSymbolPage extends React.Component {
           <ModalConfirmRemove
             show={showModalConfirmRemove}
             handleCloseModal={this.handleCloseModalConfirmRemove}
-            removeSymbol={this.removeSymbol}
+            remove={this.removeSymbol}
           />
           <ModalEditSymbol
             show={showModalEditSymbol}
