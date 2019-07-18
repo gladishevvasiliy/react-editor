@@ -44,6 +44,10 @@ export const API_SEND_NEW = '/add'
 export const API_EDIT_SYMBOL = '/edit'
 export const CREATE_COMPOSITIONS_CATEGORY = '/createCompositionCategory'
 
+export const STATUS = {
+  SUCCESS: 200,
+}
+
 export const OPTIONS = [
   {
     value: 0,

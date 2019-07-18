@@ -41,6 +41,7 @@ class AddSymbolContainer extends React.Component {
       options: [],
       pitch: '',
       categoryId: '',
+      isFetching: false,
     }
     const symbolData = {
       name: '',
@@ -54,6 +55,7 @@ class AddSymbolContainer extends React.Component {
   }
 
   onSendForm = event => {
+    this.setState({ isFetching: true })
     const { actions, list } = this.props
     const { options, pitch, categoryId } = this.state
     event.preventDefault()
@@ -72,7 +74,10 @@ class AddSymbolContainer extends React.Component {
 
     actions.addSymbol(newSymbol, categoryId)
     const url = `${API_KRUK}/${categoryId}${API_SEND_NEW}`
-    sendNewSymbolToServer(url, newSymbol)
+    sendNewSymbolToServer(url, newSymbol).then(resp => {
+      console.log(resp.status)
+      this.setState({ isFetching: false })
+    })
   }
 
   handleChangeOptions = selected => {
@@ -89,10 +94,12 @@ class AddSymbolContainer extends React.Component {
 
   render() {
     const { list, formStates } = this.props
+    const { isFetching } = this.state
     return (
       <Card>
         <Card.Header>Добавить символ</Card.Header>
         <AddSymbolForm
+          isFetching={isFetching}
           onSendForm={this.onSendForm}
           handleChangeOptions={this.handleChangeOptions}
           handleChangePitch={this.handleChangePitch}

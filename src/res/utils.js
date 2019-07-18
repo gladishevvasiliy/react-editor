@@ -1,7 +1,7 @@
 import { RFReactMultiSelect } from './RFReactSelect'
 export { RFReactMultiSelect }
 export const sendNewSymbolToServer = (url, newSymbol) => {
-  fetch(url, {
+  return fetch(url, {
     method: 'put',
     headers: {
       Accept: 'application/json',
@@ -16,7 +16,7 @@ export const sendNewSymbolToServer = (url, newSymbol) => {
       opts: newSymbol.opts,
       value: newSymbol.value,
     }),
-  }).then(() => {})
+  })
 }
 
 export const editedSymbolSendToServer = (url, newSymbol) => {
@@ -39,9 +39,9 @@ export const editedSymbolSendToServer = (url, newSymbol) => {
 }
 
 export const removeSymbolFromServer = url => {
-  fetch(url, {
+  return fetch(url, {
     method: 'put',
-  }).then(() => {})
+  })
 }
 
 export const getDataFromServer = url =>
