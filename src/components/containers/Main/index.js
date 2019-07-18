@@ -4,7 +4,7 @@ import { HashRouter as Router, Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { uniq } from 'lodash'
 import Header from '../../presentational/Header'
 import AddSymbolPage from '../../../pages/AddSymbolPage'
 import AddCompositionPage from '../../../pages/AddCompositionPage'

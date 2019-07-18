@@ -32,7 +32,7 @@ export {
   ADD_COMPOSITION,
   REMOVE_COMPOSITION,
   OPEN_MODAL_CONFIRM_REMOVE_COMPOSITION,
-  CLOSE_MODAL_CONFIRM_REMOVE_COMPOSITION,
+  CLOSE_MODAL_CONFIRM_REMOVE_COMPOSITION, 
 }
 
 // API
@@ -43,3 +43,117 @@ export const API_GET_ALL = '/all'
 export const API_SEND_NEW = '/add'
 export const API_EDIT_SYMBOL = '/edit'
 export const CREATE_COMPOSITIONS_CATEGORY = '/createCompositionCategory'
+
+
+export const OPTIONS = [
+    {
+      "value": 0,
+      "label": "Тихая"
+    },
+    {
+      "value": 1,
+      "label": "Отсечка"
+    },
+    {
+      "value": 2,
+      "label": "Задержка"
+    },
+    {
+      "value": 3,
+      "label": "Подчашие"
+    },
+    {
+      "value": 4,
+      "label": "Ломка"
+    },
+    {
+      "value": 5,
+      "label": "Подвертка"
+    },
+    {
+      "value": 6,
+      "label": "Равенство"
+    },
+    {
+      "value": 7,
+      "label": "Ударка"
+    },
+    {
+      "value": 8,
+      "label": "Борзая"
+    },
+    {
+      "value": 9,
+      "label": "Доп. пометы фа и соль"
+    },
+    {
+      "value": 10,
+      "label": "В лице Скачек средний"
+    },
+    {
+      "value": 11,
+      "label": "Скобка"
+    },
+    {
+      "value": 12,
+      "label": "В попевке кичиги"
+    },
+    {
+      "value": 13,
+      "label": "Облачко"
+    },
+    {
+      "value": 14,
+      "label": "Сорочья ножка"
+    },
+    {
+      "value": 15,
+      "label": "Закидка"
+    },
+    {
+      "value": 17,
+      "label": "2 равенства"
+    },
+    {
+      "value": 18,
+      "label": "Мережа"
+    },
+    {
+      "value": 19,
+      "label": "Мережа с поддержкой"
+    },
+    {
+      "value": 20,
+      "label": "Качка"
+    },
+    {
+      "value": 23,
+      "label": "В кулизме"
+    },
+    {
+      "value": 24,
+      "label": "Воздернутая"
+    },
+    {
+      "value": 25,
+      "label": "В лице мережа"
+    }
+  ]
+
+  export const PITCH = [
+    { value: 1, label: 'Ут низкое' },
+    { value: 2, label: 'Ре низкое' },
+    { value: 3, label: 'Ми низкое' },
+    { value: 4, label: 'Ут' },
+    { value: 5, label: 'Ре' },
+    { value: 6, label: 'Ми' },
+    { value: 7, label: 'Фа' },
+    { value: 8, label: 'Соль' },
+    { value: 9, label: 'Ля' },
+    { value: 10, label: 'Фа высокое' },
+    { value: 11, label: 'Соль высокое' },
+    { value: 12, label: 'Ля высокое' },
+    { value: 15, label: 'Гораздо высоко' },
+    { value: 15, label: 'Крыжик' },
+
+  ]

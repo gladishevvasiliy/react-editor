@@ -56,7 +56,6 @@ class AddCompositionContainer extends React.Component {
       value.name.includes('value') ? symbols.push(value.value) : null
     })
 
-    console.log(symbols)
     const idInCategory =
       list.find(category => category._id === idOfCategory.value).compositions
         .length + 1

@@ -37,7 +37,10 @@ class AddSymbolContainer extends React.Component {
     super(props)
 
     const { initializePost } = this.props
-
+    this.state = {
+      options: [],
+      pitch: '',
+    }
     const symbolData = {
       name: '',
       pitch: '',
@@ -51,16 +54,14 @@ class AddSymbolContainer extends React.Component {
 
   onSendForm = event => {
     const { actions, list } = this.props
+    const { options, pitch } = this.state
     event.preventDefault()
     const {
       name,
-      pitch,
       sounds,
-      opts,
       value,
       idOfCategory,
     } = event.target.elements
-
     const idInCategory =
       list.find(category => category._id === idOfCategory.value).symbols
         .length + 1
@@ -68,12 +69,9 @@ class AddSymbolContainer extends React.Component {
     const newSymbol = {
       id: idInCategory,
       name: name.value,
-      pitch: pitch.value,
+      pitch: pitch,
       sounds: sounds.value,
-      opts:
-        opts.value.length === 0
-          ? []
-          : opts.value.match(/[^,\s][^\,][А-я][^,\s]*/gi),
+      opts: isNil(options) ? [] : options.map(opt => opt.label),
       value: value.value,
     }
 
@@ -82,13 +80,25 @@ class AddSymbolContainer extends React.Component {
     sendNewSymbolToServer(url, newSymbol)
   }
 
+  
+  handleChangeOptions = (selected) => {
+    this.setState({ options: selected })
+  };
+  
+  handleChangePitch = (selected) => {
+    this.setState({ pitch: selected.label })
+  };
+
   render() {
+    console.log(this.state)
     const { list, formStates } = this.props
     return (
       <Card>
         <Card.Header>Добавить символ</Card.Header>
         <AddSymbolForm
           onSendForm={this.onSendForm}
+          handleChangeOptions={this.handleChangeOptions}
+          handleChangePitch={this.handleChangePitch}
           preview={isNil(formStates) ? null : formStates.value}
           nameAndIdOfCategories={list.map(item => {
             return { nameOfCategory: item.name, idOfCategory: item._id }
