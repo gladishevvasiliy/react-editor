@@ -88,7 +88,7 @@ class EditSymbolContainer extends React.Component {
       <AddSymbolForm
         onSendForm={this.onSendForm}
         nameAndIdOfCategories={list.map(item => {
-          return { nameOfCategory: item.name, idOfCategory: item._id }
+          return { label: item.name, value: item._id }
         })}
         isEditing={!isNil(editingSymbol)}
       />

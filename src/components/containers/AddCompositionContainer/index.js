@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators, compose } from 'redux'
 import { reduxForm, initialize, getFormValues } from 'redux-form'
 import { Card } from 'react-bootstrap'
-import { isNil, mapValues } from 'lodash'
+import { isNil, mapKeys, get } from 'lodash'
 import AddCompositionForm from '../../presentational/AddCompositionForm'
 import { addComposition } from '../../../actions'
 import { sendNewCompositionToServer } from '../../../res/utils'
@@ -38,32 +38,37 @@ class AddCompositionContainer extends React.Component {
 
     const { initializePost } = this.props
 
+    this.state = {
+      tones: [],
+    }
     const symbolData = {
       name: '',
-      tone: '',
-      value: '<span></span>',
+      tones: [],
       idOfCategory: '',
     }
     initializePost(symbolData)
   }
 
   onSendForm = event => {
-    const { actions, list } = this.props
     event.preventDefault()
-    const { name, tone, idOfCategory } = event.target.elements
-    const symbols = []
-    mapValues(event.target.elements, value => {
-      value.name.includes('value') ? symbols.push(value.value) : null
-    })
 
+    const { actions, list, formData } = this.props
+
+    const formValues = get(formData, 'values', {})
+
+    const { name, tones, idOfCategory } = formValues
+    const symbols = []
+    mapKeys(formValues, (value, key) => {
+      key.includes('value') ? symbols.push(value) : null
+    })
     const idInCategory =
       list.find(category => category._id === idOfCategory.value).compositions
         .length + 1
 
     const newComposition = {
       id: idInCategory,
-      name: name.value,
-      tone: tone.value,
+      name: name,
+      tone: tones.map(tone => tone.value).join(','),
       value: symbols,
     }
 
@@ -79,9 +84,10 @@ class AddCompositionContainer extends React.Component {
         <Card.Header>Добавить попевку</Card.Header>
         <AddCompositionForm
           onSendForm={this.onSendForm}
+          handleChangeTones={this.handleChangeTones}
           preview={isNil(formStates) ? null : formStates.value}
           nameAndIdOfCategories={list.map(item => {
-            return { nameOfCategory: item.name, idOfCategory: item._id }
+            return { label: item.name, value: item._id }
           })}
         />
       </Card>
@@ -97,6 +103,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
+  formData: state.form.compositionToServer,
   list: state.compositions,
   formStates: getFormValues('compositionToServer')(state),
 })

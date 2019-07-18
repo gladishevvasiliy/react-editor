@@ -40,6 +40,7 @@ class AddSymbolContainer extends React.Component {
     this.state = {
       options: [],
       pitch: '',
+      categoryId: '',
     }
     const symbolData = {
       name: '',
@@ -54,17 +55,11 @@ class AddSymbolContainer extends React.Component {
 
   onSendForm = event => {
     const { actions, list } = this.props
-    const { options, pitch } = this.state
+    const { options, pitch, categoryId } = this.state
     event.preventDefault()
-    const {
-      name,
-      sounds,
-      value,
-      idOfCategory,
-    } = event.target.elements
+    const { name, sounds, value } = event.target.elements
     const idInCategory =
-      list.find(category => category._id === idOfCategory.value).symbols
-        .length + 1
+      list.find(category => category._id === categoryId).symbols.length + 1
 
     const newSymbol = {
       id: idInCategory,
@@ -75,22 +70,24 @@ class AddSymbolContainer extends React.Component {
       value: value.value,
     }
 
-    actions.addSymbol(newSymbol, idOfCategory.value)
-    const url = `${API_KRUK}/${idOfCategory.value}${API_SEND_NEW}`
+    actions.addSymbol(newSymbol, categoryId)
+    const url = `${API_KRUK}/${categoryId}${API_SEND_NEW}`
     sendNewSymbolToServer(url, newSymbol)
   }
 
-  
-  handleChangeOptions = (selected) => {
+  handleChangeOptions = selected => {
     this.setState({ options: selected })
-  };
-  
-  handleChangePitch = (selected) => {
+  }
+
+  handleChangePitch = selected => {
     this.setState({ pitch: selected.label })
-  };
+  }
+
+  handleChangeCategory = selected => {
+    this.setState({ categoryId: selected.value })
+  }
 
   render() {
-    console.log(this.state)
     const { list, formStates } = this.props
     return (
       <Card>
@@ -99,9 +96,10 @@ class AddSymbolContainer extends React.Component {
           onSendForm={this.onSendForm}
           handleChangeOptions={this.handleChangeOptions}
           handleChangePitch={this.handleChangePitch}
+          handleChangeCategory={this.handleChangeCategory}
           preview={isNil(formStates) ? null : formStates.value}
           nameAndIdOfCategories={list.map(item => {
-            return { nameOfCategory: item.name, idOfCategory: item._id }
+            return { label: item.name, value: item._id }
           })}
         />
       </Card>

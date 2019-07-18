@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Form, Col, Button, Card } from 'react-bootstrap'
 import { Field } from 'redux-form'
+import { RFReactMultiSelect, RFReactSelect } from '../../../res/RFReactSelect'
+import { TONES } from '../../../res/constants'
 import './style.css'
 
 export default class AddCompositionForm extends React.Component {
@@ -84,7 +86,13 @@ export default class AddCompositionForm extends React.Component {
   )
 
   render() {
-    const { onSendForm, nameAndIdOfCategories, isEditing, preview } = this.props
+    const {
+      onSendForm,
+      nameAndIdOfCategories,
+      isEditing,
+      preview,
+      handleChangeTones,
+    } = this.props
     return (
       <div>
         <Form className="addSymbolForm" onSubmit={onSendForm}>
@@ -95,19 +103,21 @@ export default class AddCompositionForm extends React.Component {
                 component={this.renderInputField}
                 type="text"
                 title="Название попевки"
-                placeholder="Параклит Фа с задержкой"
+                placeholder="Площадка"
               />
             </Form.Group>
-            <Form.Group as={Col} md="3">
+            <Form.Group as={Col} md="2">
+              <Form.Label>{'Глас(ы)'}</Form.Label>
               <Field
-                name="tone"
-                component={this.renderInputField}
-                type="text"
-                placeholder="8"
-                title="Глас(ы)"
+                name="tones"
+                list="tones"
+                options={TONES}
+                onChange={handleChangeTones}
+                component={RFReactMultiSelect}
+                className="input"
               />
             </Form.Group>
-            <Form.Group as={Col} md="1">
+            <Form.Group as={Col} md="2">
               <Form.Label>Количество слогов</Form.Label>
               <Form.Control
                 name="length"
@@ -116,21 +126,19 @@ export default class AddCompositionForm extends React.Component {
                 onChange={this.onChangeLength}
               />
             </Form.Group>
-          </Form.Row>
-          <Form.Row>
-            <Form.Group>
+            <Form.Group as={Col} md="4">
+              <Form.Label>{'Категория'}</Form.Label>
               <Field
                 name="idOfCategory"
-                component={this.renderSelectField}
-                title="Категория"
-                md="4"
-                nameAndIdOfCategories={nameAndIdOfCategories}
+                options={nameAndIdOfCategories}
+                component={RFReactSelect}
+                className="input"
               />
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            {this.renderValueFields(this.state.length).map(field => (
-              <Form.Group as={Col} md="2">
+            {this.renderValueFields(this.state.length).map((field, index) => (
+              <Form.Group as={Col} md="2" key={index}>
                 {field}
               </Form.Group>
             ))}
