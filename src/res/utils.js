@@ -1,3 +1,5 @@
+import { RFReactMultiSelect } from './RFReactSelect'
+export { RFReactMultiSelect }
 export const sendNewSymbolToServer = (url, newSymbol) => {
   fetch(url, {
     method: 'put',

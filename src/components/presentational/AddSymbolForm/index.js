@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Form, Col, Button, Card } from 'react-bootstrap'
 import { Field } from 'redux-form'
+import { RFReactMultiSelect, RFReactSelect } from '../../../res/RFReactSelect'
+import { OPTIONS, PITCH } from '../../../res/constants'
 import './style.css'
 
 export default class AddSymbolForm extends React.Component {
@@ -59,8 +61,17 @@ export default class AddSymbolForm extends React.Component {
         ))}
     </React.Fragment>
   )
+
   render() {
-    const { onSendForm, nameAndIdOfCategories, isEditing, preview } = this.props
+    const {
+      onSendForm,
+      nameAndIdOfCategories,
+      isEditing,
+      preview,
+      handleChangeOptions,
+      handleChangePitch,
+      handleChangeCategory,
+    } = this.props
     return (
       <div>
         <Form className="addSymbolForm" onSubmit={onSendForm}>
@@ -75,12 +86,13 @@ export default class AddSymbolForm extends React.Component {
               />
             </Form.Group>
             <Form.Group as={Col} md="3">
+              <Form.Label>{'Помета'}</Form.Label>
               <Field
                 name="pitch"
-                component={this.renderInputField}
-                type="text"
-                placeholder="Фа"
-                title="Помета"
+                options={PITCH}
+                onChange={handleChangePitch}
+                component={RFReactSelect}
+                className="input"
               />
             </Form.Group>
             <Form.Group as={Col} md="3">
@@ -93,12 +105,14 @@ export default class AddSymbolForm extends React.Component {
               />
             </Form.Group>
             <Form.Group as={Col} md="3">
+              <Form.Label>{'Опции'}</Form.Label>
               <Field
-                name="opts"
-                component={this.renderInputField}
-                type="text"
-                placeholder="Равенство,Отсечка"
-                title="Опции"
+                name="options"
+                list="options"
+                options={OPTIONS}
+                onChange={handleChangeOptions}
+                component={RFReactMultiSelect}
+                className="input"
               />
             </Form.Group>
           </Form.Row>
@@ -112,13 +126,15 @@ export default class AddSymbolForm extends React.Component {
                 title="Вид (html)"
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group as={Col} md="4">
+              <Form.Label>{'Категория'}</Form.Label>
               <Field
                 name="idOfCategory"
-                component={this.renderSelectField}
-                title="Вид (html)"
-                md="4"
-                nameAndIdOfCategories={nameAndIdOfCategories}
+                list="options"
+                options={nameAndIdOfCategories}
+                onChange={handleChangeCategory}
+                component={RFReactSelect}
+                className="input"
               />
             </Form.Group>
           </Form.Row>
