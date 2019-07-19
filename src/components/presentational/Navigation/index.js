@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Nav, Form, Button, Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { HashLink as Link } from 'react-router-hash-link'
 
 import './style.css'
 
@@ -23,9 +24,9 @@ const Navigation = props => (
     <Form.Control type="search" placeholder="Название символа..." />
     <Nav className="flex-column">
       {props.nameOfCategories.map(category => (
-        <Nav.Link key={category} href={`#${category}`}>
+        <Link className="nav-link" key={category} to={`#${category}`}>
           {category}
-        </Nav.Link>
+        </Link>
       ))}
     </Nav>
   </React.Fragment>
