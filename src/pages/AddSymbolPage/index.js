@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import * as React from 'react'
+import { Container, Col, Row } from 'react-bootstrap'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import {
   setData,
@@ -11,54 +11,53 @@ import {
   closeModalConfirmRemove,
   closeModalEditSymbol,
   removeSymbol,
-} from '../../actions';
+} from '../../actions'
 
-import ShowSymbolsContainer from '../../components/containers/ShowSymbolsContainer';
-import Navigation from '../../components/presentational/Navigation';
-import AddSymbolContainer from '../../components/containers/AddSymbolContainer';
-import { API_KRUK } from '../../res/constants';
-import { removeSymbolFromServer } from '../../res/utils';
-import ModalConfirmRemove from '../../components/presentational/ModalConfirmRemove';
-import ModalEditSymbol from '../../components/presentational/ModalEditSymbol';
-import ModalAddCategory from '../../components/presentational/ModalAddCategory';
-import './style.css';
+import ShowSymbolsContainer from '../../components/containers/ShowSymbolsContainer'
+import Navigation from '../../components/presentational/Navigation'
+import AddSymbolContainer from '../../components/containers/AddSymbolContainer'
+import { API_KRUK } from '../../res/constants'
+import { removeSymbolFromServer } from '../../res/utils'
+import ModalConfirmRemove from '../../components/presentational/ModalConfirmRemove'
+import ModalEditSymbol from '../../components/presentational/ModalEditSymbol'
+import ModalAddCategory from '../../components/presentational/ModalAddCategory'
+import './style.css'
 
 class AddSymbolPage extends React.Component {
   handleCloseModalConfirmRemove = () => {
-    const { actions } = this.props;
-    actions.closeModalConfirmRemove();
-  };
+    const { actions } = this.props
+    actions.closeModalConfirmRemove()
+  }
 
   handleCloseModalEditSymbol = () => {
-    const { actions } = this.props;
-    actions.closeModalEditSymbol();
-  };
+    const { actions } = this.props
+    actions.closeModalEditSymbol()
+  }
 
   removeSymbol = () => {
-    console.log('THEEEEE')
-    const { actions, removingSymbolCategoryId, removingSymbolId } = this.props;
-    actions.removeSymbol(removingSymbolCategoryId, removingSymbolId);
-    actions.closeModalConfirmRemove();
-    const url = `${API_KRUK}/${removingSymbolCategoryId}/remove/${removingSymbolId}`;
-    removeSymbolFromServer(url);
-  };
+    const { actions, removingSymbolCategoryId, removingSymbolId } = this.props
+    actions.removeSymbol(removingSymbolCategoryId, removingSymbolId)
+    actions.closeModalConfirmRemove()
+    const url = `${API_KRUK}/${removingSymbolCategoryId}/remove/${removingSymbolId}`
+    return removeSymbolFromServer(url)
+  }
 
   openModalAddCategory = () => {
-    const { actions } = this.props;
-    actions.openModalAddCategory();
-  };
+    const { actions } = this.props
+    actions.openModalAddCategory()
+  }
 
   closeModalAddCategory = () => {
-    const { actions } = this.props;
-    actions.closeModalAddCategory();
-  };
+    const { actions } = this.props
+    actions.closeModalAddCategory()
+  }
 
   addCategory = e => {
-    e.preventDefault();
-    const { actions } = this.props;
-    actions.closeModalAddCategory();
-    console.log(e.currentTarget);
-  };
+    e.preventDefault()
+    const { actions } = this.props
+    actions.closeModalAddCategory()
+    console.log(e.currentTarget)
+  }
 
   render() {
     const {
@@ -66,7 +65,7 @@ class AddSymbolPage extends React.Component {
       showModalConfirmRemove,
       showModalEditSymbol,
       showModalAddCategory,
-    } = this.props;
+    } = this.props
     return (
       <div>
         <Container fluid>
@@ -98,7 +97,7 @@ class AddSymbolPage extends React.Component {
           />
         </Container>
       </div>
-    );
+    )
   }
 }
 
@@ -115,7 +114,7 @@ const mapDispatchToProps = dispatch => ({
     },
     dispatch
   ),
-});
+})
 
 const mapStateToProps = state => ({
   list: state.list,
@@ -124,9 +123,9 @@ const mapStateToProps = state => ({
   showModalAddCategory: state.modal.showModalAddCategory,
   removingSymbolCategoryId: state.modal.removingSymbolCategoryId,
   removingSymbolId: state.modal.removingSymbolId,
-});
+})
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddSymbolPage);
+)(AddSymbolPage)

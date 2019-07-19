@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Form, Col, Button, Card } from 'react-bootstrap'
 import { Field } from 'redux-form'
+import Loading from '../Loading'
 import { RFReactMultiSelect, RFReactSelect } from '../../../res/RFReactSelect'
 import { OPTIONS, PITCH } from '../../../res/constants'
 import './style.css'
@@ -64,6 +65,7 @@ export default class AddSymbolForm extends React.Component {
 
   render() {
     const {
+      isFetching,
       onSendForm,
       nameAndIdOfCategories,
       isEditing,
@@ -72,8 +74,9 @@ export default class AddSymbolForm extends React.Component {
       handleChangePitch,
       handleChangeCategory,
     } = this.props
+
     return (
-      <div>
+      <>
         <Form className="addSymbolForm" onSubmit={onSendForm}>
           <Form.Row>
             <Form.Group as={Col} md="3">
@@ -138,9 +141,15 @@ export default class AddSymbolForm extends React.Component {
               />
             </Form.Group>
           </Form.Row>
-          <Button type="submit">
-            {isEditing ? 'Сохранить изменения' : 'Добавить символ'}
-          </Button>
+          {isFetching ? (
+            <div>
+              <Loading size="3x" />
+            </div>
+          ) : (
+            <Button type="submit">
+              {isEditing ? 'Сохранить изменения' : 'Добавить символ'}
+            </Button>
+          )}
         </Form>
         <Card>
           <Card.Header>Превью</Card.Header>
@@ -153,7 +162,7 @@ export default class AddSymbolForm extends React.Component {
             </Card.Text>
           </Card.Body>
         </Card>
-      </div>
+      </>
     )
   }
 }

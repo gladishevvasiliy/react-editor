@@ -1,23 +1,48 @@
 @font-face {
-    font-family: "Kalashnikov";
-    src: url("../../../res/fonts/Kruk-Kalashn-edit-VG.ttf")
+  font-family: 'Kalashnikov';
+  src: url('../../../res/fonts/Kruk-Kalashn-edit-VG.ttf');
 }
 
 .symbol-view {
-    font-weight: normal !important;
-    font-family: Kalashnikov;
-    font-size: 60pt;
-    margin-bottom: -20px;
+  font-weight: normal !important;
+  font-family: Kalashnikov;
+  font-size: 60pt;
+  margin-bottom: -20px;
 }
 .red {
-    color: red;
+  color: red;
 }
 
 .symbolId {
-    font-size: 12px !important;
+  font-size: 12px !important;
 }
 
 .symbol-row-button {
-    width: 40px;
-    margin-right: 8px;
+  width: 40px;
+  margin-right: 8px;
+}
+
+.composition-view {
+  font-weight: normal !important;
+  font-family: Kalashnikov;
+  font-size: 30pt;
+  margin-bottom: -20px;
+}
+
+.composition-src {
+  font-weight: normal !important;
+  font-size: 6pt;
+}
+
+.compositions-category {
+  margin-bottom: 0;
+}
+
+.composition-column {
+  padding: 0 !important;
+}
+
+.composition-row {
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -3,9 +3,8 @@ import React, { Component } from 'react'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { uniq } from 'lodash'
 import Header from '../../presentational/Header'
+import Loading from '../../presentational/Loading'
 import AddSymbolPage from '../../../pages/AddSymbolPage'
 import AddCompositionPage from '../../../pages/AddCompositionPage'
 import { API_KRUK, API_COMPOSITIONS, API_GET_ALL } from '../../../res/constants'
@@ -39,12 +38,7 @@ class Main extends Component {
       return (
         <React.Fragment>
           <h1 className="title">Ба1за знаме1нъ</h1>
-          <FontAwesomeIcon
-            icon="spinner"
-            spin
-            size="6x"
-            className="loading-spinner"
-          />
+          <Loading size="6x" className="loading-spinner" />
         </React.Fragment>
       )
     }

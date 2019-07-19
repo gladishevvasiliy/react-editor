@@ -11,12 +11,31 @@ const CompositionRow = ({
 }) => {
   return (
     <tr id={composition._id} key={composition._id}>
-      {/* <th className="symbolId">{symbol._id}</th> */}
       <th>
-        <div
-          dangerouslySetInnerHTML={{ __html: composition.value.join(' ') }}
-          className="symbol-view"
-        />
+        <div className="composition-row">
+          {composition.value.map((item, index) => (
+            <div className="composition-column" key={index}>
+              <table className="compositions-category">
+                <tr>
+                  <th>{index + 1}</th>
+                </tr>
+                <tr>
+                  <th>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: item,
+                      }}
+                      className="composition-view"
+                    />
+                  </th>
+                </tr>
+                <tr>
+                  <th className="composition-src">{item}</th>
+                </tr>
+              </table>
+            </div>
+          ))}
+        </div>
       </th>
       <th>{composition.name}</th>
       <th>{composition.tone}</th>
