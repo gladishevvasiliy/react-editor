@@ -157,7 +157,13 @@ export const PITCH = [
   { value: 11, label: 'Соль высокое' },
   { value: 12, label: 'Ля высокое' },
   { value: 15, label: 'Гораздо высоко' },
-  { value: 15, label: 'Крыжик' },
+  { value: 16, label: 'Крыжик' },
+  { value: 17, label: 'Ля с доп. пометой Соль' },
+  { value: 18, label: 'Ля с доп. пометой Фа' },
+  { value: 19, label: 'Соль с доп. пометой Фа' },
+  { value: 20, label: 'Соль с доп. пометой Ми' },
+  { value: 21, label: 'Фа с доп. пометой Ми' },
+  { value: 22, label: 'Фа с доп. пометой Ре' },
 ]
 
 export const TONES = [
