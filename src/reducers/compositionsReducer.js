@@ -17,11 +17,12 @@ export default (state = initialState, action) => {
       const { newComposition, categoryId } = action.payload
       console.log(newComposition)
       const categoryToInsert = state.find(
-        category => category._id === categoryId
+        (category) => category._id === categoryId
       )
       const newCompositionToCategory = {
         name: newComposition.name,
         tone: newComposition.tone,
+        view: newComposition.view,
         value: newComposition.value,
         _id: random(1, 1000000),
       }
@@ -31,10 +32,10 @@ export default (state = initialState, action) => {
 
     case REMOVE_COMPOSITION: {
       const { categoryId, compositionId } = action.payload
-      const category = state.find(category => category._id === categoryId)
+      const category = state.find((category) => category._id === categoryId)
       const indexOfComposition = findIndex(
         category.compositions,
-        composition => composition._id === compositionId
+        (composition) => composition._id === compositionId
       )
       category.compositions.splice(indexOfComposition, 1)
       return [...state]

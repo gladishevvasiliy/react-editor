@@ -37,11 +37,37 @@ const CompositionRow = ({
           ))}
         </div>
       </th>
+      <th>
+        <div className="composition-row">
+          {composition.view.map((item, index) => (
+            <div className="composition-column" key={index}>
+              <table className="compositions-category">
+                <tr>
+                  <th>{index + 1}</th>
+                </tr>
+                <tr>
+                  <th>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: item,
+                      }}
+                      className="composition-view"
+                    />
+                  </th>
+                </tr>
+                <tr>
+                  <th className="composition-src">{item}</th>
+                </tr>
+              </table>
+            </div>
+          ))}
+        </div>
+      </th>
       <th>{composition.name}</th>
       <th>{composition.tone}</th>
       <th>
         <Button
-          onClick={props => {
+          onClick={(props) => {
             handleClickRemoveButton(categoryId, composition._id)
           }}
           className="symbol-row-button"
@@ -50,7 +76,7 @@ const CompositionRow = ({
           <FontAwesomeIcon icon="trash-alt" />
         </Button>
         <Button
-          onClick={props => {
+          onClick={(props) => {
             handleClickEditButton(categoryId, composition)
           }}
           variant="primary"

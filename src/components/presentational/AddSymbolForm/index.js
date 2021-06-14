@@ -23,12 +23,11 @@ export default class AddSymbolForm extends React.Component {
         value={input.value}
         onChange={input.onChange}
       />
-      {touched &&
-        (error && (
-          <Form.Control.Feedback type="invalid" className="feedback-form">
-            {error}
-          </Form.Control.Feedback>
-        ))}
+      {touched && error && (
+        <Form.Control.Feedback type="invalid" className="feedback-form">
+          {error}
+        </Form.Control.Feedback>
+      )}
     </React.Fragment>
   )
 
@@ -48,18 +47,17 @@ export default class AddSymbolForm extends React.Component {
         value={input.value}
         onChange={input.onChange}
       >
-        {nameAndIdOfCategories.map(item => (
+        {nameAndIdOfCategories.map((item) => (
           <option key={item.idOfCategory} value={item.idOfCategory}>
             {item.nameOfCategory}
           </option>
         ))}
       </Form.Control>
-      {touched &&
-        (error && (
-          <Form.Control.Feedback type="invalid" className="feedback-form">
-            {error}
-          </Form.Control.Feedback>
-        ))}
+      {touched && error && (
+        <Form.Control.Feedback type="invalid" className="feedback-form">
+          {error}
+        </Form.Control.Feedback>
+      )}
     </React.Fragment>
   )
 
@@ -130,7 +128,7 @@ export default class AddSymbolForm extends React.Component {
               />
             </Form.Group>
             <Form.Group as={Col} md="4">
-              <Form.Label>{'Категория'}</Form.Label>
+              <Form.Label>Категория</Form.Label>
               <Field
                 name="idOfCategory"
                 list="options"

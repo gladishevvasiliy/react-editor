@@ -15,17 +15,18 @@ class ShowCompositionsContainer extends React.Component {
     actions.openModalConfirmRemoveComposition(compositionId, categoryId)
   }
 
-  // openModalEditSymbol = (symbol, categoryId) => {
-  //   const { actions } = this.props
-  //   actions.openModalEditSymbol(categoryId, symbol)
-  // }
+  openModalEditSymbol = (symbol, categoryId) => {
+    const { actions } = this.props
+    console.log('THEEEE')
+    actions.openModalEditSymbol(categoryId, symbol)
+  }
 
   render() {
     const { compositionList } = this.props
 
     return (
       <React.Fragment>
-        {compositionList.map(category => {
+        {compositionList.map((category) => {
           if (isEmpty(category.compositions)) {
             return null
           }
@@ -45,7 +46,7 @@ class ShowCompositionsContainer extends React.Component {
     )
   }
 }
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(
     { openModalConfirmRemoveComposition, openModalEditSymbol },
     dispatch

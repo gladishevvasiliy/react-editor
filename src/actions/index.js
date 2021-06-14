@@ -16,7 +16,7 @@ import {
   SET_COMPOSITIONS,
 } from '../res/constants'
 
-export const setSymbols = value => ({ type: SET_SYMBOLS, payload: value })
+export const setSymbols = (value) => ({ type: SET_SYMBOLS, payload: value })
 
 export const addSymbol = (newSymbol, categoryId) => ({
   type: ADD_SYMBOL,
@@ -71,7 +71,7 @@ export const closeModalAddCategory = () => ({
   type: CLOSE_MODAL_ADD_CATEGORY,
 })
 
-export const setCompositions = value => ({
+export const setCompositions = (value) => ({
   type: SET_COMPOSITIONS,
   payload: value,
 })
@@ -84,4 +84,9 @@ export const addComposition = (newComposition, categoryId) => ({
 export const removeComposition = (categoryId, compositionlId) => ({
   type: REMOVE_COMPOSITION,
   payload: { categoryId, compositionlId },
+})
+
+export const openModalEditComposition = (symbol, categoryId) => ({
+  type: OPEN_MODAL_EDIT_SYMBOL,
+  payload: { categoryId, symbol },
 })

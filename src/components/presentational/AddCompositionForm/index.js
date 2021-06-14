@@ -7,18 +7,37 @@ import './style.css'
 
 export default class AddCompositionForm extends React.Component {
   state = {
-    length: 1,
+    valueLength: 1,
+    viewLength: 1,
   }
 
-  onChangeLength = e => this.setState({ length: e.target.value })
+  onChangeValueLength = (e) => this.setState({ valueLength: e.target.value })
+  onChangeViewLength = (e) => this.setState({ viewLength: e.target.value })
 
-  renderValueFields = length => {
+  renderValueFields = (length) => {
     const fields = []
     let index = 0
     while (index < length) {
       fields.push(
         <Field
           name={`value-${index}`}
+          component={this.renderInputField}
+          type="text"
+          title={`${index + 1}`}
+        />
+      )
+      index = index + 1
+    }
+    return fields
+  }
+
+  renderViewFields = (length) => {
+    const fields = []
+    let index = 0
+    while (index < length) {
+      fields.push(
+        <Field
+          name={`view-${index}`}
           component={this.renderInputField}
           type="text"
           title={`${index + 1}`}
@@ -45,12 +64,11 @@ export default class AddCompositionForm extends React.Component {
         value={input.value}
         onChange={input.onChange}
       />
-      {touched &&
-        (error && (
-          <Form.Control.Feedback type="invalid" className="feedback-form">
-            {error}
-          </Form.Control.Feedback>
-        ))}
+      {touched && error && (
+        <Form.Control.Feedback type="invalid" className="feedback-form">
+          {error}
+        </Form.Control.Feedback>
+      )}
     </React.Fragment>
   )
 
@@ -70,18 +88,17 @@ export default class AddCompositionForm extends React.Component {
         value={input.value}
         onChange={input.onChange}
       >
-        {nameAndIdOfCategories.map(item => (
+        {nameAndIdOfCategories.map((item) => (
           <option key={item.idOfCategory} value={item.idOfCategory}>
             {item.nameOfCategory}
           </option>
         ))}
       </Form.Control>
-      {touched &&
-        (error && (
-          <Form.Control.Feedback type="invalid" className="feedback-form">
-            {error}
-          </Form.Control.Feedback>
-        ))}
+      {touched && error && (
+        <Form.Control.Feedback type="invalid" className="feedback-form">
+          {error}
+        </Form.Control.Feedback>
+      )}
     </React.Fragment>
   )
 
@@ -91,6 +108,7 @@ export default class AddCompositionForm extends React.Component {
       nameAndIdOfCategories,
       isEditing,
       preview,
+      viewPreview,
       handleChangeTones,
     } = this.props
     return (
@@ -118,16 +136,25 @@ export default class AddCompositionForm extends React.Component {
               />
             </Form.Group>
             <Form.Group as={Col} md="2">
-              <Form.Label>Количество слогов</Form.Label>
+              <Form.Label>Cлогов в разводе</Form.Label>
               <Form.Control
                 name="length"
                 type="number"
-                value={this.state.length}
-                onChange={this.onChangeLength}
+                value={this.state.valueLength}
+                onChange={this.onChangeValueLength}
               />
             </Form.Group>
-            <Form.Group as={Col} md="4">
-              <Form.Label>{'Категория'}</Form.Label>
+            <Form.Group as={Col} md="2">
+              <Form.Label>Cлогов в куче</Form.Label>
+              <Form.Control
+                name="length"
+                type="number"
+                value={this.state.viewLength}
+                onChange={this.onChangeViewLength}
+              />
+            </Form.Group>
+            <Form.Group as={Col} md="2">
+              <Form.Label>Категория</Form.Label>
               <Field
                 name="idOfCategory"
                 options={nameAndIdOfCategories}
@@ -137,11 +164,32 @@ export default class AddCompositionForm extends React.Component {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            {this.renderValueFields(this.state.length).map((field, index) => (
-              <Form.Group as={Col} md="2" key={index}>
-                {field}
-              </Form.Group>
-            ))}
+            <p>Тайнозамкненное начертание</p>
+          </Form.Row>
+          <Form.Row>
+            {this.renderViewFields(this.state.viewLength).map(
+              (field, index) => (
+                <Form.Group as={Col} md="2" key={index}>
+                  {field}
+                </Form.Group>
+              )
+            )}
+            <div
+              dangerouslySetInnerHTML={{ __html: viewPreview }}
+              className="symbol-view"
+            />
+          </Form.Row>
+          <Form.Row>
+            <p>Развод</p>
+          </Form.Row>
+          <Form.Row>
+            {this.renderValueFields(this.state.valueLength).map(
+              (field, index) => (
+                <Form.Group as={Col} md="2" key={index}>
+                  {field}
+                </Form.Group>
+              )
+            )}
           </Form.Row>
           <Button type="submit">
             {isEditing ? 'Сохранить изменения' : 'Добавить попевку'}

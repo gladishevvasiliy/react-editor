@@ -38,14 +38,14 @@ export const editedSymbolSendToServer = (url, newSymbol) => {
   }).then(() => {})
 }
 
-export const removeSymbolFromServer = url => {
+export const removeSymbolFromServer = (url) => {
   return fetch(url, {
     method: 'put',
   })
 }
 
-export const getDataFromServer = url =>
-  fetch(url).then(resp => {
+export const getDataFromServer = (url) =>
+  fetch(url).then((resp) => {
     const data = resp.json()
     return data
   })
@@ -61,6 +61,7 @@ export const sendNewCompositionToServer = (url, newComposition) => {
     body: JSON.stringify({
       id: newComposition.id,
       name: newComposition.name,
+      view: newComposition.view,
       tone: newComposition.tone,
       value: newComposition.value,
     }),

@@ -3,13 +3,14 @@ import { Table } from 'react-bootstrap'
 import CompositionRow from '../CompositionRow'
 import './style.css'
 
-const ListOfCompositions = props => {
+const ListOfCompositions = (props) => {
   return (
     <Table striped bordered hover className="categoryTable">
       <thead>
         <tr>
           {/* <th>#</th> */}
           <th>Вид</th>
+          <th>Тайнозамкненное начертание</th>
           <th>Название</th>
           <th>Глас</th>
 
@@ -17,7 +18,7 @@ const ListOfCompositions = props => {
         </tr>
       </thead>
       <tbody>
-        {props.compositions.map(composition => (
+        {props.compositions.map((composition) => (
           <CompositionRow
             key={composition._id}
             composition={composition}
