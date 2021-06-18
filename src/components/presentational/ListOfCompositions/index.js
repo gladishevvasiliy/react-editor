@@ -8,7 +8,6 @@ const ListOfCompositions = (props) => {
     <Table striped bordered hover className="categoryTable">
       <thead>
         <tr>
-          {/* <th>#</th> */}
           <th>Вид</th>
           <th>Тайнозамкненное начертание</th>
           <th>Название</th>

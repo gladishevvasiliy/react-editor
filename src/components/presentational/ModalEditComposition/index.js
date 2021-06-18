@@ -1,8 +1,13 @@
 import * as React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import EditSymbolContainer from '../../containers/EditSymbolContainer'
+import EditCompositionContainer from '../../containers/EditCompositionContainer'
 
-const ModalEditSymbol = ({ show, handleCloseModal }) => (
+const ModalEditComposition = ({
+  show,
+  handleCloseModal,
+  editingComposition,
+  categoryId,
+}) => (
   <Modal
     show={show}
     onHide={handleCloseModal}
@@ -10,10 +15,13 @@ const ModalEditSymbol = ({ show, handleCloseModal }) => (
     size="lg"
   >
     <Modal.Header closeButton>
-      <Modal.Title>Редактирование символа</Modal.Title>
+      <Modal.Title>Редактирование попевки</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-      <EditSymbolContainer />
+      <EditCompositionContainer
+        categoryId={categoryId}
+        editingComposition={editingComposition}
+      />
     </Modal.Body>
     <Modal.Footer>
       <Button variant="secondary" onClick={handleCloseModal}>
@@ -23,4 +31,4 @@ const ModalEditSymbol = ({ show, handleCloseModal }) => (
   </Modal>
 )
 
-export default ModalEditSymbol
+export default ModalEditComposition

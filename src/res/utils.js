@@ -82,3 +82,21 @@ export const sendNewCompositionCategoryToServer = (url, categoryName) => {
     }),
   }).then(() => {})
 }
+
+export const sendEditedCompositionToServer = (url, newComposition) => {
+  fetch(url, {
+    method: 'put',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+
+    body: JSON.stringify({
+      _id: newComposition._id,
+      name: newComposition.name,
+      view: newComposition.view,
+      tone: newComposition.tone,
+      value: newComposition.value,
+    }),
+  }).then(() => {})
+}

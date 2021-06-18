@@ -6,11 +6,6 @@ import { TONES } from '../../../res/constants'
 import './style.css'
 
 export default class AddCompositionForm extends React.Component {
-  state = {
-    valueLength: 1,
-    viewLength: 1,
-  }
-
   onChangeValueLength = (e) => this.setState({ valueLength: e.target.value })
   onChangeViewLength = (e) => this.setState({ viewLength: e.target.value })
 
@@ -110,6 +105,7 @@ export default class AddCompositionForm extends React.Component {
       preview,
       viewPreview,
       handleChangeTones,
+      formState,
     } = this.props
     return (
       <div>
@@ -124,7 +120,7 @@ export default class AddCompositionForm extends React.Component {
                 placeholder="Площадка"
               />
             </Form.Group>
-            <Form.Group as={Col} md="2">
+            <Form.Group as={Col} md="3">
               <Form.Label>{'Глас(ы)'}</Form.Label>
               <Field
                 name="tones"
@@ -136,21 +132,21 @@ export default class AddCompositionForm extends React.Component {
               />
             </Form.Group>
             <Form.Group as={Col} md="2">
-              <Form.Label>Cлогов в разводе</Form.Label>
-              <Form.Control
-                name="length"
+              <Field
+                name="valueLength"
+                component={this.renderInputField}
                 type="number"
-                value={this.state.valueLength}
-                onChange={this.onChangeValueLength}
+                title="Cлогов в разводе"
+                placeholder=""
               />
             </Form.Group>
             <Form.Group as={Col} md="2">
-              <Form.Label>Cлогов в куче</Form.Label>
-              <Form.Control
-                name="length"
+              <Field
+                name="viewLength"
+                component={this.renderInputField}
                 type="number"
-                value={this.state.viewLength}
-                onChange={this.onChangeViewLength}
+                title="Cлогов в куче"
+                placeholder=""
               />
             </Form.Group>
             <Form.Group as={Col} md="2">
@@ -167,13 +163,14 @@ export default class AddCompositionForm extends React.Component {
             <p>Тайнозамкненное начертание</p>
           </Form.Row>
           <Form.Row>
-            {this.renderViewFields(this.state.viewLength).map(
+            {this.renderViewFields(formState?.viewLength || 1).map(
               (field, index) => (
                 <Form.Group as={Col} md="2" key={index}>
                   {field}
                 </Form.Group>
               )
             )}
+            {console.log({ viewPreview })}
             <div
               dangerouslySetInnerHTML={{ __html: viewPreview }}
               className="symbol-view"
@@ -183,7 +180,7 @@ export default class AddCompositionForm extends React.Component {
             <p>Развод</p>
           </Form.Row>
           <Form.Row>
-            {this.renderValueFields(this.state.valueLength).map(
+            {this.renderValueFields(formState?.valueLength || 1).map(
               (field, index) => (
                 <Form.Group as={Col} md="2" key={index}>
                   {field}

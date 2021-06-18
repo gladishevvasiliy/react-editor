@@ -8,17 +8,34 @@ import {
   openModalEditSymbol,
 } from '../../../actions'
 import CategoryOfCompositions from '../../presentational/CategoryOfCompositions/index'
+import ModalEditComposition from '../../presentational/ModalEditComposition'
 
 class ShowCompositionsContainer extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showModalEditComposition: false,
+      editingComposition: {},
+    }
+  }
   openModalConfirmRemoveComposition = (compositionId, categoryId) => {
     const { actions } = this.props
     actions.openModalConfirmRemoveComposition(compositionId, categoryId)
   }
 
-  openModalEditSymbol = (symbol, categoryId) => {
-    const { actions } = this.props
-    console.log('THEEEE')
-    actions.openModalEditSymbol(categoryId, symbol)
+  openModalEditSymbol = (categoryId, composition) => {
+    console.log({ categoryId, composition })
+
+    this.setState({
+      showModalEditComposition: true,
+      editingComposition: composition,
+      categoryId,
+    })
+  }
+
+  handleCloseModalEditSymbol = () => {
+    this.setState({ showModalEditComposition: false })
   }
 
   render() {
@@ -42,6 +59,12 @@ class ShowCompositionsContainer extends React.Component {
             />
           )
         })}
+        <ModalEditComposition
+          show={this.state.showModalEditComposition}
+          handleCloseModal={this.handleCloseModalEditSymbol}
+          editingComposition={this.state.editingComposition}
+          categoryId={this.state.categoryId}
+        />
       </React.Fragment>
     )
   }

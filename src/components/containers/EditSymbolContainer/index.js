@@ -8,7 +8,7 @@ import { addSymbol, editSymbol } from '../../../actions'
 import { editedSymbolSendToServer } from '../../../res/utils'
 import { API_KRUK, API_EDIT_SYMBOL } from '../../../res/constants'
 
-const validate = values => {
+const validate = (values) => {
   const errors = {}
   if (!values.name) {
     errors.name = 'Введите название знамени'
@@ -47,20 +47,14 @@ class EditSymbolContainer extends React.Component {
     initializePost(symbolData)
   }
 
-  onSendForm = event => {
+  onSendForm = (event) => {
     const { actions, list, editingSymbol } = this.props
     event.preventDefault()
-    const {
-      name,
-      pitch,
-      sounds,
-      opts,
-      value,
-      idOfCategory,
-    } = event.target.elements
+    const { name, pitch, sounds, opts, value, idOfCategory } =
+      event.target.elements
 
     const idInCategory =
-      list.find(category => category._id === idOfCategory.value).symbols
+      list.find((category) => category._id === idOfCategory.value).symbols
         .length + 1
 
     const newSymbol = {
@@ -76,9 +70,7 @@ class EditSymbolContainer extends React.Component {
       value: value.value,
     }
     actions.editSymbol(newSymbol, idOfCategory.value)
-    const url = `${API_KRUK}/${idOfCategory.value}${API_EDIT_SYMBOL}/${
-      editingSymbol._id
-    }`
+    const url = `${API_KRUK}/${idOfCategory.value}${API_EDIT_SYMBOL}/${editingSymbol._id}`
     editedSymbolSendToServer(url, newSymbol)
   }
 
@@ -87,7 +79,7 @@ class EditSymbolContainer extends React.Component {
     return (
       <AddSymbolForm
         onSendForm={this.onSendForm}
-        nameAndIdOfCategories={list.map(item => {
+        nameAndIdOfCategories={list.map((item) => {
           return { label: item.name, value: item._id }
         })}
         isEditing={!isNil(editingSymbol)}
@@ -96,22 +88,19 @@ class EditSymbolContainer extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({ addSymbol, editSymbol }, dispatch),
-  initializePost: function(symbolData) {
+  initializePost: function (symbolData) {
     dispatch(initialize('symbolToServer', symbolData))
   },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   list: state.list,
   editingSymbol: state.modal.editingSymbol,
 })
 
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   reduxForm({ form: 'symbolToServer', touchOnChange: true, validate })
 )(EditSymbolContainer)

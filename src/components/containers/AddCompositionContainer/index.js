@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators, compose } from 'redux'
 import { reduxForm, initialize, getFormValues } from 'redux-form'
 import { Card } from 'react-bootstrap'
-import { isNil, mapKeys, get } from 'lodash'
+import { mapKeys, get } from 'lodash'
 import AddCompositionForm from '../../presentational/AddCompositionForm'
 import { addComposition } from '../../../actions'
 import { sendNewCompositionToServer } from '../../../res/utils'
@@ -41,12 +41,14 @@ class AddCompositionContainer extends React.Component {
     this.state = {
       tones: [],
     }
-    const symbolData = {
+    const compositionData = {
       name: '',
       tones: [],
       idOfCategory: '',
+      viewLength: 1,
+      valueLength: 1,
     }
-    initializePost(symbolData)
+    initializePost(compositionData)
   }
 
   onSendForm = (event) => {
@@ -56,14 +58,14 @@ class AddCompositionContainer extends React.Component {
 
     const formValues = get(formData, 'values', {})
 
-    const { name, tones, idOfCategory, view } = formValues
+    const { name, tones, idOfCategory } = formValues
     const symbols = []
     const viewSymbols = []
     mapKeys(formValues, (value, key) => {
-      key.includes('value') ? symbols.push(value) : null
+      key.includes('value-') ? symbols.push(value) : null
     })
     mapKeys(formValues, (value, key) => {
-      key.includes('view') ? viewSymbols.push(value) : null
+      key.includes('view-') ? viewSymbols.push(value) : null
     })
     const idInCategory =
       list.find((category) => category._id === idOfCategory.value).compositions
@@ -88,13 +90,14 @@ class AddCompositionContainer extends React.Component {
     let view = []
 
     for (const key in formStates) {
-      if (key.indexOf('value') !== -1) {
+      if (key.indexOf('value-') !== -1) {
         value.push(formStates[key])
       }
-      if (key.indexOf('view') !== -1) {
+      if (key.indexOf('view-') !== -1) {
         view.push(formStates[key])
       }
     }
+    console.log(formStates)
 
     return (
       <Card>
@@ -107,6 +110,7 @@ class AddCompositionContainer extends React.Component {
           nameAndIdOfCategories={list.map((item) => {
             return { label: item.name, value: item._id }
           })}
+          formStates={formStates}
         />
       </Card>
     )
