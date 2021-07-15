@@ -30,6 +30,18 @@ const CompositionRow = ({
                   </th>
                 </tr>
                 <tr>
+                  <th>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: composition.valueText
+                          ? composition.valueText[index]
+                          : null,
+                      }}
+                      className="composition-text"
+                    />
+                  </th>
+                </tr>
+                <tr>
                   <th className="composition-src">{item}</th>
                 </tr>
               </table>

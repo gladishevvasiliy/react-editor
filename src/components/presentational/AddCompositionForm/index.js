@@ -14,12 +14,19 @@ export default class AddCompositionForm extends React.Component {
     let index = 0
     while (index < length) {
       fields.push(
-        <Field
-          name={`value-${index}`}
-          component={this.renderInputField}
-          type="text"
-          title={`${index + 1}`}
-        />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <Field
+            name={`value-${index}`}
+            component={this.renderInputField}
+            type="text"
+            title={`${index + 1}`}
+          />
+          <Field
+            name={`text-${index}`}
+            component={this.renderSlavonicInputField}
+            type="text"
+          />
+        </div>
       )
       index = index + 1
     }
@@ -43,6 +50,30 @@ export default class AddCompositionForm extends React.Component {
     return fields
   }
 
+  renderSlavonicInputField = ({
+    input,
+    title,
+    type,
+    placeholder,
+    meta: { touched, error },
+  }) => (
+    <React.Fragment>
+      <Form.Label>{title}</Form.Label>
+      <Form.Control
+        name={input.name}
+        type={type}
+        placeholder={placeholder}
+        value={input.value}
+        onChange={input.onChange}
+        className="composition-text"
+      />
+      {touched && error && (
+        <Form.Control.Feedback type="invalid" className="feedback-form">
+          {error}
+        </Form.Control.Feedback>
+      )}
+    </React.Fragment>
+  )
   renderInputField = ({
     input,
     title,
@@ -106,6 +137,7 @@ export default class AddCompositionForm extends React.Component {
       viewPreview,
       handleChangeTones,
       formState,
+      valueText,
     } = this.props
     return (
       <div>

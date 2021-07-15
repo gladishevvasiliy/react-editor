@@ -30,23 +30,35 @@ class EditCompositionContainer extends React.Component {
     editingComposition.view.map(
       (item, index) => (compositionData[`view-${index}`] = item)
     )
+    editingComposition.valueText.map(
+      (item, index) => (compositionData[`text-${index}`] = item)
+    )
     console.log({ compositionData })
     initializePost(compositionData)
   }
 
   onSendForm = (event) => {
     event.preventDefault()
-    const { actions, list, formState, categoryId } = this.props
+    const { formState, categoryId } = this.props
 
     const { name, tones, _id } = formState
 
     const symbols = []
     const viewSymbols = []
+    const valueText = []
+    for (let i = 0; i < parseInt(formState.valueLength); i++) {
+      valueText.push('-')
+    }
     mapKeys(formState, (value, key) => {
       key.includes('value-') ? symbols.push(value) : null
     })
     mapKeys(formState, (value, key) => {
       key.includes('view-') ? viewSymbols.push(value) : null
+    })
+    mapKeys(formState, (value, key) => {
+      key.includes('text-')
+        ? (valueText[parseInt(key.split('text-')[1])] = value)
+        : null
     })
 
     // const idInCategory =
@@ -60,6 +72,7 @@ class EditCompositionContainer extends React.Component {
       view: viewSymbols,
       tone: tones.map((tone) => tone.value).join(','),
       value: symbols,
+      valueText,
     }
     console.log({ newComposition })
     // actions.editSymbol(newComposition, categoryId.value)

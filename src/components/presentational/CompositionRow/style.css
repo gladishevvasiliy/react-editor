@@ -2,6 +2,10 @@
   font-family: 'Kalashnikov';
   src: url('../../../res/fonts/Kruk-Kalashn-edit-VG.ttf');
 }
+@font-face {
+  font-family: 'Damaskin';
+  src: url('../../../res/fonts/NewDamaskin.ttf');
+}
 
 .symbol-view {
   font-weight: normal !important;
@@ -27,6 +31,12 @@
   font-family: Kalashnikov;
   font-size: 30pt;
   margin-bottom: -20px;
+}
+
+.composition-text {
+  font-weight: normal !important;
+  font-family: Damaskin;
+  font-size: 20pt;
 }
 
 .composition-src {

@@ -64,6 +64,7 @@ export const sendNewCompositionToServer = (url, newComposition) => {
       view: newComposition.view,
       tone: newComposition.tone,
       value: newComposition.value,
+      valueText: newComposition.valueText,
     }),
   }).then(() => {})
 }
@@ -97,6 +98,7 @@ export const sendEditedCompositionToServer = (url, newComposition) => {
       view: newComposition.view,
       tone: newComposition.tone,
       value: newComposition.value,
+      valueText: newComposition.valueText,
     }),
   }).then(() => {})
 }

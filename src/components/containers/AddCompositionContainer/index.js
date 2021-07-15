@@ -61,11 +61,20 @@ class AddCompositionContainer extends React.Component {
     const { name, tones, idOfCategory } = formValues
     const symbols = []
     const viewSymbols = []
+    const valueText = []
+    for (let i = 0; i < parseInt(formValues.valueLength); i++) {
+      valueText.push('-')
+    }
     mapKeys(formValues, (value, key) => {
       key.includes('value-') ? symbols.push(value) : null
     })
     mapKeys(formValues, (value, key) => {
       key.includes('view-') ? viewSymbols.push(value) : null
+    })
+    mapKeys(formValues, (value, key) => {
+      key.includes('text-')
+        ? (valueText[parseInt(key.split('text-')[1])] = value)
+        : null
     })
     const idInCategory =
       list.find((category) => category._id === idOfCategory.value).compositions
@@ -77,6 +86,7 @@ class AddCompositionContainer extends React.Component {
       view: viewSymbols,
       tone: tones.map((tone) => tone.value).join(','),
       value: symbols,
+      valueText,
     }
     console.log(newComposition)
     actions.addComposition(newComposition, idOfCategory.value)
@@ -85,19 +95,19 @@ class AddCompositionContainer extends React.Component {
   }
 
   render() {
-    const { list, formStates } = this.props
+    const { list, formState } = this.props
     let value = []
     let view = []
 
-    for (const key in formStates) {
+    for (const key in formState) {
       if (key.indexOf('value-') !== -1) {
-        value.push(formStates[key])
+        value.push(formState[key])
       }
       if (key.indexOf('view-') !== -1) {
-        view.push(formStates[key])
+        view.push(formState[key])
       }
     }
-    console.log(formStates)
+    console.log(formState)
 
     return (
       <Card>
@@ -106,11 +116,11 @@ class AddCompositionContainer extends React.Component {
           onSendForm={this.onSendForm}
           handleChangeTones={this.handleChangeTones}
           preview={value.join('  ')}
-          viewPreview={formStates ? view.join('  ') : null}
+          viewPreview={formState ? view.join('  ') : null}
           nameAndIdOfCategories={list.map((item) => {
             return { label: item.name, value: item._id }
           })}
-          formStates={formStates}
+          formState={formState}
         />
       </Card>
     )
@@ -127,7 +137,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   formData: state.form.compositionToServer,
   list: state.compositions,
-  formStates: getFormValues('compositionToServer')(state),
+  formState: getFormValues('compositionToServer')(state),
 })
 
 export default compose(
