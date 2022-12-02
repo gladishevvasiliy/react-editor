@@ -36,9 +36,9 @@ export {
 }
 
 // API
-
-export const API_KRUK = 'https://tranquil-plateau-55628.herokuapp.com/kruk'
-export const API_COMPOSITIONS = 'https://tranquil-plateau-55628.herokuapp.com/composition'
+const HOST = 'http://1127153-cy27173.tw1.ru'
+export const API_KRUK = `${HOST}/kruk`
+export const API_COMPOSITIONS = `${HOST}/composition`
 export const API_GET_ALL = '/all'
 export const API_SEND_NEW = '/add'
 export const API_EDIT_SYMBOL = '/edit'
