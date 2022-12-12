@@ -36,7 +36,7 @@ export {
 }
 
 // API
-const HOST = 'http://1127153-cy27173.tw1.ru'
+const HOST = 'https://domestikos.ru/base'
 export const API_KRUK = `${HOST}/kruk`
 export const API_COMPOSITIONS = `${HOST}/composition`
 export const API_GET_ALL = '/all'
